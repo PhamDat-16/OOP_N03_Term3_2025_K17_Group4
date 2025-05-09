@@ -1,4 +1,13 @@
 # OOP_N03_Term3_2025_K17_Group4
+Chương trình quản lý khách sạn
+Chương trình quản lý khách sạn là một ứng dụng phần mềm được thiết kế để giúp quản lý các hoạt động của một khách sạn, bao gồm việc theo dõi các phòng, khách hàng, và các dịch vụ liên quan. Chương trình này có thể bao gồm nhiều tính năng khác nhau để hỗ trợ các công việc quản lý, ví dụ như đặt phòng, trả phòng, xem thông tin phòng, và quản lý khách hàng.
+Giao diện người dùng (UI) có thể bao gồm các phần:
+Giao diện đăng nhập: Quản lý sẽ đăng nhập vào hệ thống.
+Giao diện quản lý phòng: Cho phép thêm, sửa, xóa các phòng.
+Giao diện quản lý khách hàng: Cho phép thêm và quản lý thông tin khách hàng.
+Giao diện đặt phòng: Quản lý quá trình khách hàng đặt phòng, xác nhận và cập nhật tình trạng phòng.
+Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạng phòng, doanh thu và các thông tin liên quan.
+Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 # Member:
 # 1.Trần Văn Nhật
 # 2.Nguyễn Duy Bảo
