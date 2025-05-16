@@ -1,4 +1,4 @@
-mport Test.TestUser;
+import Test.TestUser;
 import Test.TestRecursion;
 import Test.TestTime;
 public class Main {
