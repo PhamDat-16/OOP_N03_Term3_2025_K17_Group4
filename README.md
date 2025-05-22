@@ -21,7 +21,7 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 # 3.Phạm Văn Đạt
 # 4.Nguyễn Lệ Thu
 # Content:Project 04
-# Nội Dung: 
+# Nội Dung 01: 
 Project 04. Xây dựng ứng dụng quản lý khách sạn.
 Yêu cầu chính:
 - Java Spring Boot
@@ -55,8 +55,13 @@ Yêu cầu chính:
 - Customer
 - Booking
 - Room
-# Nội dung 02: Class Diagram
-- Sơ đồ Class Diagram (mô tả mối quan hệ giữa các lớp):
+# Nội Dung 02:
+- UML Class Diagram (mô tả mối quan hệ giữa các lớp):
 ![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
+# Nội dung 03:
+
+
+
+
 
 
