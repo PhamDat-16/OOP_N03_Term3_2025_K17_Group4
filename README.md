@@ -60,6 +60,7 @@ Yêu cầu chính:
 ![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
 # Nội dung 03:
 ![Uploading Ảnh chụp màn hình 2025-05-22 085822.png…]()
+https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing
 
 
 
