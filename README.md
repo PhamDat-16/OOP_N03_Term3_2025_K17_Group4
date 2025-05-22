@@ -20,3 +20,11 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 # 2.Nguyễn Duy Bảo
 # 3.Phạm Văn Đạt
 # 4.Nguyễn Lệ Thu
+# Content:Project 04
+# Nội Dung: 
+Project 04. Xây dựng ứng dụng quản lý khách sạn.
+Yêu cầu chính:
+- Java Spring Boot
+-
+
+
