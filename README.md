@@ -59,8 +59,10 @@ Yêu cầu chính:
 - UML Class Diagram (mô tả mối quan hệ giữa các lớp):
 ![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
 # Nội dung 03:
-![Uploading Ảnh chụp màn hình 2025-05-22 085822.png…]()
+-01:
 https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing
+-02:
+https://drive.google.com/file/d/1AsSR0mHNE9UGVOE0k1nJYVHmSVLO9Z0k/view?usp=sharing
 
 
 
