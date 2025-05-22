@@ -57,7 +57,6 @@ Yêu cầu chính:
 - Room
 # Nội dung 02: Class Diagram
 - Sơ đồ Class Diagram (mô tả mối quan hệ giữa các lớp):
-
-
+![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
 
 
