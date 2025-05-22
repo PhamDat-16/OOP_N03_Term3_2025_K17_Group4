@@ -55,6 +55,9 @@ Yêu cầu chính:
 - Customer
 - Booking
 - Room
+# Nội dung 02: Class Diagram
+- Sơ đồ Class Diagram (mô tả mối quan hệ giữa các lớp):
+
 
 
 
