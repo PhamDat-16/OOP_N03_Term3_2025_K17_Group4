@@ -16,17 +16,17 @@ Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạn
 
 Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 # Member:
-•	Tran Van Nhat
-•	Nguyen Duy Bao
-•	Pham Van Dat
-•	Nguyen Le Thu
+# 1 Tran Van Nhat
+# 2	Nguyen Duy Bao
+# 3	Pham Van Dat
+# 4	Nguyen Le Thu
 
 
 # Công Nghệ Sử Dụng
-•	Ngôn ngữ: Java
-•	Database: MySQL
-•	Kết nối DB: JDBC
-•	Giao Diện: GUI
+# Ngôn ngữ: Java
+# Database: MySQL
+# Kết nối DB: JDBC
+# Giao Diện: GUI
 
 
 
@@ -47,6 +47,7 @@ o	Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập 
 o	Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
 o	Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
 o	Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
+
 
 # Chức năng mở rộng(tùy chọn):
 - Tính tổng tiền thuê cho từng khách hàng
