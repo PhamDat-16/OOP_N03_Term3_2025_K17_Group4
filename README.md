@@ -22,11 +22,12 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 # 4	Nguyen Le Thu
 
 
-# Công Nghệ Sử Dụng
-# Ngôn ngữ: Java
-# Database: MySQL
-# Kết nối DB: JDBC
-# Giao Diện: GUI
+🚀 Công Nghệ Sử Dụng
+•	Ngôn ngữ: Java
+•	Database: MySQL
+•	Kết nối DB: JDBC
+•	Giao Diện: GUI
+
 
 
 
