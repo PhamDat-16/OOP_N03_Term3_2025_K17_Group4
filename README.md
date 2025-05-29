@@ -18,7 +18,7 @@ Giao diện đặt phòng: Quản lý quá trình khách hàng đặt phòng, x�
 Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạng phòng, doanh thu và các thông tin liên quan.
 
 Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
-# Member:
+# 👥 Thành Viên Nhóm
 # 1 Tran Van Nhat
 # 2	Nguyen Duy Bao
 # 3	Pham Van Dat
