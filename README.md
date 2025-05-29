@@ -52,12 +52,16 @@ Yêu cầu chính:
   
 # 📋Cách Sử Dụng
 # 1.	Khởi Động Chương Trình:
+
 o	Chạy lớp HotelBookingGUI.Main để mở giao diện chính (MainDashboard).
 
 # 2.	Giao Diện Chính:
 o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
+
 o	👤Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
+
 o	🧾Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
+
 o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
 
 
