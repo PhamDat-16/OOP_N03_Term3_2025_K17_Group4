@@ -25,8 +25,11 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 🚀 Công Nghệ Sử Dụng
 
 •	Ngôn ngữ: Java
+
 •	Database: MySQL
+
 •	Kết nối DB: JDBC
+
 •	Giao Diện: GUI
 
 
