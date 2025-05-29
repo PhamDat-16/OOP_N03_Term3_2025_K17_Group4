@@ -4,7 +4,8 @@
 # 📖 Mô Tả
 Chương trình quản lý khách sạn là một ứng dụng phần mềm được thiết kế để giúp quản lý các hoạt động của một khách sạn, bao gồm việc theo dõi các phòng, khách hàng, và các dịch vụ liên quan. Chương trình này có thể bao gồm nhiều tính năng khác nhau để hỗ trợ các công việc quản lý, ví dụ như đặt phòng, trả phòng, xem thông tin phòng, và quản lý khách hàng.
 
-# Giao diện người dùng (UI) có thể bao gồm các phần:
+
+# 📌Giao diện người dùng (UI) có thể bao gồm các phần:
 
 - Giao diện quản lý phòng: Cho phép thêm, sửa, xóa các phòng.
 
