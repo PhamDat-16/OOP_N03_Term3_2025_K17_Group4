@@ -6,22 +6,22 @@ Chương trình quản lý khách sạn là một ứng dụng phần mềm đư
 
 # Giao diện người dùng (UI) có thể bao gồm các phần:
 
-Giao diện đăng nhập: Quản lý sẽ đăng nhập vào hệ thống.
+- Giao diện quản lý phòng: Cho phép thêm, sửa, xóa các phòng.
 
-Giao diện quản lý phòng: Cho phép thêm, sửa, xóa các phòng.
+- Giao diện quản lý khách hàng: Cho phép thêm và quản lý thông tin khách hàng.
 
-Giao diện quản lý khách hàng: Cho phép thêm và quản lý thông tin khách hàng.
+- Giao diện đặt phòng: Quản lý quá trình khách hàng đặt phòng, xác nhận và cập nhật tình trạng phòng.
 
-Giao diện đặt phòng: Quản lý quá trình khách hàng đặt phòng, xác nhận và cập nhật tình trạng phòng.
+- Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạng phòng và các thông tin liên quan.
 
-Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạng phòng, doanh thu và các thông tin liên quan.
 
-Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
+
+
 # 👥 Thành Viên Nhóm
-# 1 Tran Van Nhat
-# 2	Nguyen Duy Bao
-# 3	Pham Van Dat
-# 4	Nguyen Le Thu
+1 Tran Van Nhat
+2	Nguyen Duy Bao
+3	Pham Van Dat
+4	Nguyen Le Thu
 
 
 
@@ -37,8 +37,6 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 
 
 
-
-
 # Nội Dung 01: 
 Project 04. Xây dựng ứng dụng quản lý khách sạn.
 Yêu cầu chính:
@@ -46,10 +44,12 @@ Yêu cầu chính:
 - Giao diện đơn giản
 - Dữ liệu lưu vào file nhị phân
 - Lưu trữ nội bộ bằng các Collection như ArrayList , Map , LinkedList,...
-- 
+
+  
 # 📋Cách Sử Dụng
 # 1.	Khởi Động Chương Trình:
 o	Chạy lớp HotelBookingGUI.Main để mở giao diện chính (MainDashboard).
+
 # 2.	Giao Diện Chính:
 o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
 o	👤Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
@@ -57,10 +57,11 @@ o	🧾Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15
 o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
 
 
-# 🏆Chức năng mở rộng(tùy chọn):
+# 🏆Phát triển trong tương lai:
 - Tính tổng tiền thuê cho từng khách hàng
 - Thông kê các phòng đã có người ở, số lượng khách thuê
 - Tìm kiêm khách sạn thuê dài hạn
+- 
 # Các lớp cần thiết:
 - Customer
 - Booking
@@ -68,6 +69,7 @@ o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" đ�
 # Nội Dung 02:
 - UML Class Diagram (mô tả mối quan hệ giữa các lớp):
 ![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
+
 # Nội dung 03:
 -01:
 https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing
