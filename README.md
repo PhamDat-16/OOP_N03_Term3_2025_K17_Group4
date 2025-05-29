@@ -1,4 +1,3 @@
-# OOP_N03_Term3_2025_K17_Group4
 
 # 💻Chương trình quản lý khách sạn
 
@@ -28,13 +27,13 @@ Trong tương lai sẽ cải tiến chuowg trình hoàn thiện hơn.
 
 # 🚀 Công Nghệ Sử Dụng
 
-•	Ngôn ngữ: Java
+•	✅Ngôn ngữ: Java
 
-•	Database: MySQL
+•	💾Database: MySQL
 
-•	Kết nối DB: JDBC
+• 🔌Kết nối DB: JDBC
 
-•	Giao Diện: GUI
+•	💻Giao Diện: Swing
 
 
 
@@ -48,17 +47,17 @@ Yêu cầu chính:
 - Dữ liệu lưu vào file nhị phân
 - Lưu trữ nội bộ bằng các Collection như ArrayList , Map , LinkedList,...
 - 
-# Cách Sử Dụng
+# 📋Cách Sử Dụng
 # 1.	Khởi Động Chương Trình:
 o	Chạy lớp HotelBookingGUI.Main để mở giao diện chính (MainDashboard).
 # 2.	Giao Diện Chính:
-o	Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
-o	Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
-o	Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
-o	Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
+o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
+o	👤Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
+o	🧾Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
+o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
 
 
-# Chức năng mở rộng(tùy chọn):
+# 🏆Chức năng mở rộng(tùy chọn):
 - Tính tổng tiền thuê cho từng khách hàng
 - Thông kê các phòng đã có người ở, số lượng khách thuê
 - Tìm kiêm khách sạn thuê dài hạn
