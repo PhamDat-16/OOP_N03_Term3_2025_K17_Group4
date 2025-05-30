@@ -7,14 +7,13 @@ Chương trình quản lý khách sạn là một ứng dụng phần mềm đư
 
 # 📌Giao diện người dùng (UI) có thể bao gồm các phần:
 
-- Giao diện quản lý phòng: Cho phép thêm, sửa, xóa các phòng.
+- Giao diện quản lý phòng: Cho phép thêm thông tin khách hàng đặt phòng, số phòng, CMND, phone, ngày đặt, ngày rời đi.
+  
+- Giao diện quản lý khách hàng: Hiển thị thông tin khách hàng đã nhập vào và có chức năng xóa thông tin khách hàng.
 
-- Giao diện quản lý khách hàng: Cho phép thêm và quản lý thông tin khách hàng.
+- Giao diện kiểm tra phòng: Hiển thị Số phòng, loại phòng và trạng thái của phòng đó.
 
-- Giao diện đặt phòng: Quản lý quá trình khách hàng đặt phòng, xác nhận và cập nhật tình trạng phòng.
-
-- Giao diện báo cáo: Hiển thị các báo cáo thống kê về tình trạng phòng và các thông tin liên quan.
-
+- Giao diện báo cáo: Hiển thị Tên khách hàng, số phòng, loại phòng đang hoạt động.
 
 
 
