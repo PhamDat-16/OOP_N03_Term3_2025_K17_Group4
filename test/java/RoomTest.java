@@ -1,30 +1,22 @@
 package test.java;
-
 import main.java.model.Room;
-
 public class RoomTest {
-    public static void TestRoom() {
-        HotelManagement hotel = new HotelManagement();
-
-        // In danh sách phòng
-        System.out.println("Danh sách phòng:");
-        for (Room room : hotel.getRooms()) {
-            System.out.println("Phòng: " + room.getRoom() +
-                    ", Loại: " + room.getType() +
-                    ", Trạng thái: " + (room.isAvailable() ? "Trống" : "Đã đặt"));
-        }
-
-        // Kiểm tra trạng thái của một phòng cụ thể (ví dụ: phòng 201)
-        Room room201 = hotel.getRooms().stream()
-                .filter(r -> r.getRoom() == 201)
-                .findFirst()
-                .orElse(null);
-
-        if (room201 != null) {
-            System.out.println("\nTrạng thái phòng 201: " +
-                    (room201.isAvailable() ? "Trống" : "Đã đặt"));
-        } else {
-            System.out.println("\nPhòng 201 không tồn tại!");
-        }
-    }
+public static void main(String[] args) {
+Room room1 = new Room(101, "Phong don", 500000);
+Room room2 = new Room(102, "Phong doi", 800000);
+System.out.println("== Kiem thu them phong ==");
+System.out.println(room1);
+System.out.println(room2);
+System.out.println("\nTrang thai ban dau cua phong 101:");
+System.out.println("Co san?: " + room1.isAvailable());
+System.out.println("Trang thai: " + room1.getRoomStatus());
+room1.setAvailable(false);
+room1.setRoomStatus("Da dat");
+System.out.println("\nSau khi dat phong 101:");
+System.out.println(room1);
+room1.setAvailable(true);
+room1.setRoomStatus("Available");
+System.out.println("\nSau khi tra phong 101:");
+System.out.println(room1);
+}
 }
