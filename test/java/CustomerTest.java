@@ -1,10 +1,10 @@
-package test;
+package test.java;
 
 import main.java.model.Customer;
 
 public class CustomerTest {
     public static void TestCustomer() {
-        HotelManagement hotel = new HotelManagement();
+         HotelManagement hotel = new HotelManagement();
 
         // Hamf thêm khách hàng
         Customer customer1 = new Customer("Tran Van Nhat", "06520059652005", "0969655965");
