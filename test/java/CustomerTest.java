@@ -1,6 +1,6 @@
 package test;
 
-import model.Customer;
+import main.java.model.Customer;
 
 public class CustomerTest {
     public static void TestCustomer() {

@@ -1,6 +1,6 @@
 package test;
 
-import model.Room;
+import main.java.model.Room;
 
 public class RoomTest {
     public static void TestRoom() {
