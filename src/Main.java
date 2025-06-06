@@ -10,10 +10,16 @@ public class Main {
 //        SwingUtilities.invokeLater(() -> {
 //             new MainDashboard();
 //           CustomerTest.TestCustomer();
+<<<<<<< HEAD
            BookingTest.TestBooking();
 //          RoomTest.TestRoom();
 
 //        });
+=======
+//           BookingTest.TestBooking();
+ //          RoomTest.TestRoom();
+        });
+>>>>>>> 83519cc5bb57c2ffe5faa9915bd74fe1eeacd1b4
 
 
     }
