@@ -21,7 +21,6 @@ public class BookingDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, guestName);
             stmt.setString(2, roomNumber);
-
             // Chuyển đổi ngày tháng
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.sql.Date checkin = null;
@@ -35,7 +34,6 @@ public class BookingDAO {
             }
             stmt.setDate(3, checkin);
             stmt.setDate(4, checkout);
-
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 return true;

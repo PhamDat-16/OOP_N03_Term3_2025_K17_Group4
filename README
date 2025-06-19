@@ -90,9 +90,9 @@ Dưới đây là lưu đồ thuật toán cho phương thức `main` trong `Hot
 ![Lưu đồ thuật toán chức năng chính](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view?usp=sharing)
 ## Phân công công việc
 
-- **Sinh viên A**: Thực hiện chức năng thêm khách hàng mới (`addNewCustomer`) trong file `test/AddCustomer.java`.
-- **Sinh viên B**: Thực hiện chức năng tìm phòng trống (`findAvailableRoom`) trong file `test/FindRoom.java`.
-- **Sinh viên C**: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (`bookRoomAndCheckStatus`) trong file `test/BookRoom.java`.
+- **Sinh viên Nhật**: Thực hiện chức năng thêm khách hàng mới (`addNewCustomer`) trong file `test/AddCustomer.java`.
+- **Sinh viên Bảo**: Thực hiện chức năng tìm phòng trống (`findAvailableRoom`) trong file `test/FindRoom.java`.
+- **Sinh viên Đạt**: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (`bookRoomAndCheckStatus`) trong file `test/BookRoom.java`.
 - **Cả nhóm**: Gọi các chức năng con trong phương thức `main` trong file `test/Main.java`.
 
 ## Mô tả các phương thức
