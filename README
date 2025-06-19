@@ -90,7 +90,25 @@ Dưới đây là lưu đồ thuật toán cho phương thức `main` trong `Hot
 ![Lưu đồ thuật toán chức năng chính](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view?usp=sharing)
 ## Phân công công việc
 
-- **Phạm Văn Đạt MSV 23017150**: Thực hiện chức năng thêm khách hàng mới (`addNewCustomer`) trong `Main.java`.
-- **Nguyễn Duy Bảo MSV 23017133**: Thực hiện chức năng tìm phòng trống (`findAvailableRoom`) trong `Main.java`.
-- **Trần Văn Nhật MSV 23010625**: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (`bookRoomAndCheckStatus`) trong `Main.java`.
-- **Cả nhóm**: Gọi các chức năng con trong phương thức `main` để tạo thành chức năng chính.
+- **Sinh viên A**: Thực hiện chức năng thêm khách hàng mới (`addNewCustomer`) trong file `test/AddCustomer.java`.
+- **Sinh viên B**: Thực hiện chức năng tìm phòng trống (`findAvailableRoom`) trong file `test/FindRoom.java`.
+- **Sinh viên C**: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (`bookRoomAndCheckStatus`) trong file `test/BookRoom.java`.
+- **Cả nhóm**: Gọi các chức năng con trong phương thức `main` trong file `test/Main.java`.
+
+## Mô tả các phương thức
+Thành Viên 1: Nhật MSV 230170625
+Nhiệm vụ: Thêm, xóa trong thông tin khách hàng
+Thành Viên 2: Bảo MSV  23017133
+Nhiệm vụ: Check tra, In list room
+Thành Viên 3: Đạt MSV 23017150
+Nhiệm vụ: Thêm, xóa, trong danh sách phòng
+ 
+
+- **addNewCustomer (Trần Văn Nhật)**:
+  -Cho phép nhập thông tin khách hàng bao gồm Name, idCard, Phone. Kiểm tra xem thông tin đó đã tồn tại trong danh sách hay chưa thông qua hàm addCustomer từ class HotelManagement nếu tồn tại thì không được thêm vào danh sách, còn chưa thì thông tin được nhập vào thành công
+
+- **findAvailableRoom (Nguyễn Duy Bảo)**:
+  -Mô tả: In danh sách phòng và Kiểm tra phòng đó có tồn tại hay còn trống hay không thông qua hàm ở phương thức HotelManagement
+
+- **bookRoomAndCheckStatus (Phạm Văn Đạt)**:
+  - Mô tả: Thêm thông tin đặt hàng và bổ sung thông tin phòng. Kiểm tra xem thông tin đó có tồn tại hay không thông qua các phương thức kiểm tra ở Class Hotel Management. Nếu không tồn tại thì sẽ được bổ sung thành công. Hết thời gian đó sẽ báo lỗi. Sau phần này thêm hoặc xóa sẽ ra danh sách.
