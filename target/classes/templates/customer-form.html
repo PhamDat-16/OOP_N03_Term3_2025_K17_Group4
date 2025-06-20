@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Khách Hàng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-8">
+    <h1 class="text-2xl font-bold text-center mb-6">Quản Lý Khách Hàng</h1>
+    <div th:if="${error}" class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+        <span th:text="${error}"></span>
+    </div>
+    <div th:if="${success}" class="bg-green-100 text-green-700 p-4 mb-4 rounded">
+        <span th:text="${success}"></span>
+    </div>
+    <form th:action="@{/customers/delete}" method="post" class="bg-white p-6 rounded shadow-md max-w-lg mx-auto mb-6">
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="identifier">Tên/CMND để xóa:</label>
+            <input type="text" id="identifier" name="identifier" class="w-full p-2 border rounded">
+        </div>
+        <button type="submit" class="bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-700">Xóa Khách Hàng</button>
+    </form>
+    <div class="bg-white p-6 rounded shadow-md max-w-4xl mx-auto">
+        <table class="w-full table-auto">
+            <thead>
+            <tr>
+                <th class="px-4 py-2">Tên</th>
+                <th class="px-4 py-2">CMND/CCCD</th>
+                <th class="px-4 py-2">Số Điện Thoại</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td class="border px-4 py-2" th:text="${customer.name}"></td>
+                <td class="border px-4 py-2" th:text="${customer.idCard}"></td>
+                <td class="border px-4 py-2" th:text="${customer.phone}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

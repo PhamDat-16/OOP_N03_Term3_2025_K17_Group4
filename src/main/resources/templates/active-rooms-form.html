@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Phòng Đang Hoạt Động</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-8">
+    <h1 class="text-2xl font-bold text-center mb-6">Danh Sách Phòng Đang Hoạt Động</h1>
+    <div class="bg-white p-6 rounded shadow-md max-w-4xl mx-auto">
+        <table class="w-full table-auto">
+            <thead>
+            <tr>
+                <th class="px-4 py-2">Tên Khách Hàng</th>
+                <th class="px-4 py-2">Số Phòng</th>
+                <th class="px-4 py-2">Loại Phòng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookings}" th:if="${booking.customer != null}">
+                <td class="border px-4 py-2" th:text="${booking.customer.name}"></td>
+                <td class="border px-4 py-2" th:text="${booking.room.roomNumber}"></td>
+                <td class="border px-4 py-2" th:text="${booking.room.type}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
