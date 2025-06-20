@@ -30,7 +30,7 @@ public class HotelManagementTest {
         // Đạt - Quản lí phòng
         System.out.println("\nDanh Sách Phòng");
         for (Room room : hotel.getRooms()) {
-            System.out.println("Phòng: " + room.getRoom() +
+            System.out.println("Phòng: " + room.getRoomNumber() +
                     ", Loại: " + room.getType() +
                     ", Trạng thái: " + (room.isAvailable() ? "Trống" : "Đã đặt"));
         }
@@ -38,14 +38,14 @@ public class HotelManagementTest {
         // Bảo - Đặt Phòng
         System.out.println("\nĐặt phòng");
         Room room201 = hotel.getRooms().stream()
-                .filter(r -> r.getRoom() == 201)
+                .filter(r -> r.getRoomNumber() == 201)
                 .findFirst()
                 .orElse(null);
 
         if (room201 != null) {
             Booking booking = new Booking(customer1, room201, LocalDate.of(2025, 5, 10), LocalDate.of(2025, 5, 12));
             if (hotel.addBooking(booking)) {
-                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room201.getRoom());
+                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room201.getRoomNumber());
             } else {
                 System.out.println("Thêm đặt phòng thất bại: Phòng không tồn tại hoặc đã được đặt");
             }
@@ -55,7 +55,7 @@ public class HotelManagementTest {
         System.out.println("\nDanh sách đặt phòng:");
         for (Booking b : hotel.getBookings()) {
             System.out.println("Khách: " + b.getCustomer().getName() +
-                    ", Phòng: " + b.getRoom().getRoom() +
+                    ", Phòng: " + b.getRoom().getRoomNumber() +
                     ", Loại: " + b.getRoom().getType() +
                     ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
         }
@@ -88,7 +88,7 @@ public class HotelManagementTest {
         } else {
             for (Booking b : hotel.getBookings()) {
                 System.out.println("Khách: " + b.getCustomer().getName() +
-                        ", Phòng: " + b.getRoom().getRoom() +
+                        ", Phòng: " + b.getRoom().getRoomNumber() +
                         ", Loại: " + b.getRoom().getType() +
                         ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
             }

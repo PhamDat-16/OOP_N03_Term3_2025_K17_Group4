@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Khách hàng</title>
+</head>
+<body>
+<h2>Danh sách Khách hàng</h2>
+
+<table border="1">
+    <tr>
+        <th>Tên</th>
+        <th>CMND/CCCD</th>
+        <th>Số điện thoại</th>
+    </tr>
+    <tr th:each="c : ${customers}">
+        <td th:text="${c.name}">Tên</td>
+        <td th:text="${c.idCard}">CMND</td>
+        <td th:text="${c.phone}">SĐT</td>
+    </tr>
+</table>
+
+<h3>Thêm Khách hàng</h3>
+<form action="/customers/add" method="post">
+    Tên: <input type="text" name="name"><br>
+    CMND: <input type="text" name="idCard"><br>
+    SĐT: <input type="text" name="phone"><br>
+    <button type="submit">Thêm</button>
+</form>
+
+<h3>Xóa Khách hàng</h3>
+<form action="/customers/delete" method="post">
+    CMND cần xóa: <input type="text" name="idCard"><br>
+    <button type="submit">Xóa</button>
+</form>
+
+</body>
+</html>

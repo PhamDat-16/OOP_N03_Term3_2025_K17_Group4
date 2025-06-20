@@ -28,7 +28,7 @@ public class HotelManagement {
                 for (int room = 1; room <= 3; room++) {
                     int roomNumber = floor * 100 + room;
                     String type = types[(roomNumber % 2)];
-                    rooms.add(new Room(roomNumber, type));
+                    rooms.add(new Room(roomNumber, type, "Single", 500.0, true));
                 }
             }
         }
@@ -45,7 +45,7 @@ public class HotelManagement {
         // Thêm đặt phòng
         public boolean addBooking (Booking booking){
             Room room = rooms.stream()
-                    .filter(r -> r.getRoom() == booking.getRoom().getRoom())
+                    .filter(r -> r.getRoomNumber() == booking.getRoom().getRoomNumber())
                     .findFirst()
                     .orElse(null);
             if (room == null || !room.isAvailable()) {

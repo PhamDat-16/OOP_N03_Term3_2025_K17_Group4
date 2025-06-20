@@ -50,7 +50,7 @@ public class ActiveRoomsForm extends JFrame {
             if (booking.getCustomer() != null) { // Chỉ hiển thị các đặt phòng có khách
                 tableModel.addRow(new Object[]{
                         booking.getCustomer().getName(),
-                        booking.getRoom().getRoom(),
+                        booking.getRoom().getRoomNumber(),
                         booking.getRoom().getType()
                 });
             }

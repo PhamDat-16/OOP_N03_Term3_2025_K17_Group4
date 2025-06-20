@@ -47,7 +47,7 @@ public class RoomForm extends JFrame {
     public void updateRoomTable() {
         tableModel.setRowCount(0);
         for (Room room : hotelManagement.getRooms()) {
-            tableModel.addRow(new Object[]{room.getRoom(), room.getType(), room.isAvailable() ? "Trống" : "Đã đặt"});
+            tableModel.addRow(new Object[]{room.getRoomNumber(), room.getType(), room.isAvailable() ? "Trống" : "Đã đặt"});
         }
     }
 }

@@ -147,7 +147,7 @@ public class BookingForm extends JFrame {
 
             // Kiểm tra phòng
             Room room = hotelManagement.getRooms().stream()
-                    .filter(r -> r.getRoom() == roomNumber)
+                    .filter(r -> r.getRoomNumber() == roomNumber)
                     .findFirst()
                     .orElse(null);
 

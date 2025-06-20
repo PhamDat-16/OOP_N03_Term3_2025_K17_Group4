@@ -19,14 +19,14 @@ public class BookingTest {
 
         // Thêm đặt phòng
         Room room = hotel.getRooms().stream()
-                .filter(r -> r.getRoom() == 201)
+                .filter(r -> r.getRoomNumber() == 201)
                 .findFirst()
                 .orElse(null);
 
         if (room != null) {
             Booking booking = new Booking(customer1, room, LocalDate.of(2025, 5, 10), LocalDate.of(2025, 5, 12));
             if (hotel.addBooking(booking)) {
-                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room.getRoom());
+                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room.getRoomNumber());
             } else {
                 System.out.println("Thêm đặt phòng thất bại: Phòng không tồn tại hoặc đã được đặt");
             }
@@ -37,7 +37,7 @@ public class BookingTest {
         for (Booking b : hotel.getBookings()) {
             if (b.getCustomer() != null) {
                 System.out.println("Khách: " + b.getCustomer().getName() +
-                        ", Phòng: " + b.getRoom().getRoom() +
+                        ", Phòng: " + b.getRoom().getRoomNumber() +
                         ", Loại: " + b.getRoom().getType() +
                         ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
             }

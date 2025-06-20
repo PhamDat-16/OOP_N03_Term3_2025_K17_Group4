@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Phòng</title>
+</head>
+<body>
+<h2>Danh sách Phòng</h2>
+
+<table border="1">
+    <tr>
+        <th>Số phòng</th>
+        <th>Loại</th>
+        <th>Trạng thái</th>
+    </tr>
+    <tr th:each="r : ${rooms}">
+        <td th:text="${r.room}">101</td>
+        <td th:text="${r.type}">Đơn</td>
+        <td th:text="${r.available ? 'Trống' : 'Đã đặt'}">Trạng thái</td>
+    </tr>
+</table>
+
+</body>
+</html>

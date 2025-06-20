@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt Phòng</title>
+</head>
+<body>
+<h2>Danh sách Đặt Phòng</h2>
+
+<table border="1">
+    <tr>
+        <th>Tên khách</th>
+        <th>Số phòng</th>
+        <th>Loại phòng</th>
+        <th>Ngày đến</th>
+        <th>Ngày đi</th>
+    </tr>
+    <tr th:each="b : ${bookings}">
+        <td th:text="${b.customer.name}">Tên</td>
+        <td th:text="${b.room.room}">101</td>
+        <td th:text="${b.room.type}">Đơn</td>
+        <td th:text="${b.checkIn}">2025-06-21</td>
+        <td th:text="${b.checkOut}">2025-06-23</td>
+    </tr>
+</table>
+
+<h3>Thêm Đặt Phòng</h3>
+<form action="/bookings/add" method="post">
+    CMND khách: <input type="text" name="idCard"><br>
+    Số phòng: <input type="number" name="roomNumber"><br>
+    Ngày đến: <input type="date" name="checkIn"><br>
+    Ngày đi: <input type="date" name="checkOut"><br>
+    <button type="submit">Đặt</button>
+</form>
+
+</body>
+</html>

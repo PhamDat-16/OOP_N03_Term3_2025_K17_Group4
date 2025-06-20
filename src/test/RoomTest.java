@@ -9,14 +9,14 @@ public class RoomTest {
         // In danh sách phòng
         System.out.println("Danh sách phòng:");
         for (Room room : hotel.getRooms()) {
-            System.out.println("Phòng: " + room.getRoom() +
+            System.out.println("Phòng: " + room.getRoomNumber() +
                     ", Loại: " + room.getType() +
                     ", Trạng thái: " + (room.isAvailable() ? "Trống" : "Đã đặt"));
         }
 
         // Kiểm tra trạng thái của một phòng cụ thể (ví dụ: phòng 201)
         Room room201 = hotel.getRooms().stream()
-                .filter(r -> r.getRoom() == 201)
+                .filter(r -> r.getRoomNumber() == 201)
                 .findFirst()
                 .orElse(null);
 
