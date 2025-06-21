@@ -36,7 +36,7 @@ Chương trình quản lý khách sạn là một ứng dụng phần mềm đư
 
 • 🔌Kết nối DB: JDBC
 
-•	💻Giao Diện: Swing
+•	💻Giao Diện: Spring Boot
 
 
 
@@ -52,7 +52,7 @@ Yêu cầu chính:
 # 📋Cách Sử Dụng
 # 1.	Khởi Động Chương Trình:
 
-o	Chạy lớp HotelBookingGUI.Main để mở giao diện chính (MainDashboard).
+o	Chạy lớp ServingWebContentApplication.Java để mở giao diện chính (MainDashboard).
 
 # 2.	Giao Diện Chính:
 o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
