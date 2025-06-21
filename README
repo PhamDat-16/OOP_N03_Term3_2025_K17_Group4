@@ -34,7 +34,7 @@ Chương trình quản lý khách sạn là một ứng dụng phần mềm đư
 
 •	💾Database: MySQL
 
-• 🔌Kết nối DB: JDBC
+•🔌Kết nối DB: JDBC
 
 •	💻Giao Diện: Spring Boot
 
