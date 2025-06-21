@@ -1,11 +1,10 @@
-package springboot.service;
+package QuanLyKhachSan.service;
 
 import model.Booking;
 import model.Customer;
 import model.Room;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,7 +70,6 @@ public class HotelManagementService {
         if (customerToRemove == null) {
             return false;
         }
-
 
         List<Booking> bookingsToRemove = bookings.stream()
                 .filter(b -> b.getCustomer().equals(customerToRemove))

@@ -1,5 +1,5 @@
 // File: springboot/service/CustomerService.java
-package springboot.service;
+package QuanLyKhachSan.service;
 
 import model.Customer;
 import org.springframework.stereotype.Service;

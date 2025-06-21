@@ -1,4 +1,4 @@
-package springboot.controller;
+package QuanLyKhachSan.controller;
 
 import model.Booking;
 import model.Customer;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import springboot.service.HotelManagementService;
+import QuanLyKhachSan.service.HotelManagementService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

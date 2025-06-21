@@ -1,13 +1,13 @@
-package springboot.service;
+package QuanLyKhachSan.service;
 
 import model.Booking;
 import model.Customer;
 import model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.repository.BookingRepository;
-import springboot.repository.CustomerRepository;
-import springboot.repository.RoomRepository;
+import QuanLyKhachSan.repository.BookingRepository;
+import QuanLyKhachSan.repository.CustomerRepository;
+import QuanLyKhachSan.repository.RoomRepository;
 
 import java.time.LocalDate;
 import java.util.List;

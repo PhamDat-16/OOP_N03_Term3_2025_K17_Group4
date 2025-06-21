@@ -1,4 +1,4 @@
-package springboot.repository;
+package QuanLyKhachSan.repository;
 
 import model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;

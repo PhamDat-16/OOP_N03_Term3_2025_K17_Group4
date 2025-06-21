@@ -1,9 +1,9 @@
-package springboot.service;
+package QuanLyKhachSan.service;
 
 import model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.repository.RoomRepository;
+import QuanLyKhachSan.repository.RoomRepository;
 
 import java.util.List;
 
