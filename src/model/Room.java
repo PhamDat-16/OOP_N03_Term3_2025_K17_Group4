@@ -12,7 +12,7 @@ public class Room {
 
     // Constructors, getters, setters
     public Room(int roomNumber, String type, String single, double v, boolean b) {}
-    public Room(int roomNumber, String type) {
+    public Room(int roomNumber, String type, boolean b) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.available = true;

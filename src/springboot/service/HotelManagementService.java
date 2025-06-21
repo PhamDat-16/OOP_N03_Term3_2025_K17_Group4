@@ -20,7 +20,6 @@ public class HotelManagementService {
         initializeRooms();
     }
 
-    // Khởi tạo sẵn 15 phòng (tầng 2-6, mỗi tầng 3 phòng)
     private void initializeRooms() {
         String[] types = {"Đơn", "Đôi"};
         for (int floor = 2; floor <= 6; floor++) {
@@ -32,16 +31,14 @@ public class HotelManagementService {
         }
     }
 
-    // Thêm khách hàng mới
     public boolean addCustomer(Customer customer) {
         if (customers.stream().anyMatch(c -> c.getIdCard().equals(customer.getIdCard()))) {
-            return false; // CMND đã tồn tại
+            return false;
         }
         customers.add(customer);
         return true;
     }
 
-    // Thêm đặt phòng
     public boolean addBooking(Booking booking) {
         Room room = rooms.stream()
                 .filter(r -> r.getRoomNumber() == booking.getRoom().getRoomNumber())
@@ -55,7 +52,7 @@ public class HotelManagementService {
         return true;
     }
 
-    // Thêm phòng mới
+
     public boolean addRoom(Room room) {
         if (rooms.stream().anyMatch(r -> r.getRoomNumber() == room.getRoomNumber())) {
             return false;
@@ -64,7 +61,7 @@ public class HotelManagementService {
         return true;
     }
 
-    // Xóa khách hàng dựa trên tên hoặc idCard
+
     public boolean removeCustomer(String identifier) {
         Customer customerToRemove = customers.stream()
                 .filter(c -> c.getName().equals(identifier) || c.getIdCard().equals(identifier))
@@ -75,7 +72,7 @@ public class HotelManagementService {
             return false;
         }
 
-        // Xóa tất cả các đặt phòng liên quan
+
         List<Booking> bookingsToRemove = bookings.stream()
                 .filter(b -> b.getCustomer().equals(customerToRemove))
                 .collect(Collectors.toList());
@@ -89,7 +86,7 @@ public class HotelManagementService {
         return true;
     }
 
-    // Getter cho danh sách khách hàng, phòng, và đặt phòng
+
     public List<Customer> getCustomers() {
         return customers;
     }

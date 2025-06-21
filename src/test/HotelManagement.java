@@ -19,78 +19,78 @@ public class HotelManagement {
         initializeRooms();
     }
 
-
-
-        // Khởi tạo sẵn 15 phòng (tầng 2-6, mỗi tầng 3 phòng)
-        private void initializeRooms () {
-            String[] types = {"Đơn", "Đôi"};
-            for (int floor = 2; floor <= 6; floor++) {
-                for (int room = 1; room <= 3; room++) {
-                    int roomNumber = floor * 100 + room;
-                    String type = types[(roomNumber % 2)];
-                    rooms.add(new Room(roomNumber, type, "Single", 500.0, true));
-                }
+    private void initializeRooms() {
+        String[] types = {"Đơn", "Đôi"};
+        for (int floor = 2; floor <= 6; floor++) {
+            for (int room = 1; room <= 3; room++) {
+                int roomNumber = floor * 100 + room;
+                String type = types[(room - 1) % 2]; // Xen kẽ: Đơn cho phòng lẻ, Đôi cho phòng chẵn
+                rooms.add(new Room(roomNumber, type, true));
+                // In kiểm tra để debug
+                System.out.println("Đã tạo phòng: " + roomNumber + ", Loại: " + type);
             }
         }
+        System.out.println("Tổng số phòng được khởi tạo: " + rooms.size());
+    }
 
-        // Thêm khách hàng mới
-        public boolean addCustomer (Customer customer){
-            if (customers.stream().anyMatch(c -> c.getIdCard().equals(customer.getIdCard()))) {
-                return false; // CMND đã tồn tại
-            }
-            customers.add(customer);
-            return true;
+
+    public boolean addCustomer(Customer customer) {
+        if (customers.stream().anyMatch(c -> c.getIdCard().equals(customer.getIdCard()))) {
+            return false; // CMND đã tồn tại
+        }
+        customers.add(customer);
+        return true;
+    }
+
+    // Thêm đặt phòng
+    public boolean addBooking(Booking booking) {
+        Room room = rooms.stream()
+                .filter(r -> r.getRoomNumber() == booking.getRoom().getRoomNumber())
+                .findFirst()
+                .orElse(null);
+        if (room == null || !room.isAvailable()) {
+            return false;
+        }
+        bookings.add(booking);
+        room.setAvailable(false);
+        return true;
+    }
+
+
+    public boolean removeCustomer(String identifier) {
+        Customer customerToRemove = customers.stream()
+                .filter(c -> c.getName().equals(identifier) || c.getIdCard().equals(identifier))
+                .findFirst()
+                .orElse(null);
+
+        if (customerToRemove == null) {
+            return false;
         }
 
-        // Thêm đặt phòng
-        public boolean addBooking (Booking booking){
-            Room room = rooms.stream()
-                    .filter(r -> r.getRoomNumber() == booking.getRoom().getRoomNumber())
-                    .findFirst()
-                    .orElse(null);
-            if (room == null || !room.isAvailable()) {
-                return false;
-            }
-            bookings.add(booking);
-            room.setAvailable(false);
-            return true;
+
+        List<Booking> bookingsToRemove = bookings.stream()
+                .filter(b -> b.getCustomer().equals(customerToRemove))
+                .collect(Collectors.toList());
+
+        for (Booking booking : bookingsToRemove) {
+            booking.getRoom().setAvailable(true);
+            bookings.remove(booking);
         }
 
-        // Xóa khách hàng dựa trên tên hoặc idCard
-        public boolean removeCustomer (String identifier){
-            Customer customerToRemove = customers.stream()
-                    .filter(c -> c.getName().equals(identifier) || c.getIdCard().equals(identifier))
-                    .findFirst()
-                    .orElse(null);
+        customers.remove(customerToRemove);
+        return true;
+    }
 
-            if (customerToRemove == null) {
-                return false;
-            }
 
-            // Xóa tất cả các đặt phòng liên quan
-            List<Booking> bookingsToRemove = bookings.stream()
-                    .filter(b -> b.getCustomer().equals(customerToRemove))
-                    .collect(Collectors.toList());
+    public List<Customer> getCustomers() {
+        return customers;
+    }
 
-            for (Booking booking : bookingsToRemove) {
-                booking.getRoom().setAvailable(true);
-                bookings.remove(booking);
-            }
+    public List<Room> getRooms() {
+        return rooms;
+    }
 
-            customers.remove(customerToRemove);
-            return true;
-        }
-
-        // Getter cho danh sách khách hàng, phòng, và đặt phòng
-        public List<Customer> getCustomers () {
-            return customers;
-        }
-
-        public List<Room> getRooms () {
-            return rooms;
-        }
-
-        public List<Booking> getBookings () {
-            return bookings;
-        }
+    public List<Booking> getBookings() {
+        return bookings;
+    }
 }

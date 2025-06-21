@@ -17,7 +17,7 @@ public class HotelController {
     @Autowired
     private HotelManagementService hotelManagementService;
 
-    // Trang chính (MainDashboard)
+    // Trang Chủ
     @GetMapping("/")
     public String index() {
         return "index";
@@ -41,7 +41,7 @@ public class HotelController {
             @RequestParam String checkIn,
             @RequestParam String checkOut,
             Model model) {
-        // Kiểm tra dữ liệu đầu vào
+        // Check Data đầu vào
         if (name.isEmpty() || idCard.isEmpty() || phone.isEmpty() || roomNumber.isEmpty() || checkIn.isEmpty() || checkOut.isEmpty()) {
             model.addAttribute("error", "Vui lòng điền đầy đủ thông tin!");
             return "booking-form";

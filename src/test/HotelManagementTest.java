@@ -1,77 +1,130 @@
 package test;
 
-
-
 import model.Booking;
 import model.Customer;
 import model.Room;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class HotelManagementTest {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         HotelManagement hotel = new HotelManagement();
 
-        // Nhật - Khách Hàng
-        System.out.println("Nhập thông tin khách hàng: ");
-        Customer customer1 = new Customer("Tran Van Nhat", "06520059652005", "0969655965");
+
+        System.out.println("\nDanh Sách Phòng Sau Khởi Tạo:");
+        if (hotel.getRooms().isEmpty()) {
+            System.out.println("Chưa có phòng nào.");
+        } else {
+            for (Room room : hotel.getRooms()) {
+                System.out.println("Phòng: " + room.getRoomNumber() +
+                        ", Loại: " + (room.getType() != null ? room.getType() : "Không xác định") +
+                        ", Trạng thái: " + (room.isAvailable() ? "Trống" : "Đã đặt"));
+            }
+        }
+
+        System.out.println("\nNhập thông tin khách hàng:");
+        System.out.print("Tên khách hàng: ");
+        String name = scanner.nextLine().trim();
+        System.out.print("CMND: ");
+        String idCard = scanner.nextLine().trim();
+        System.out.print("Số điện thoại: ");
+        String phone = scanner.nextLine().trim();
+
+        Customer customer1 = new Customer(name, idCard, phone);
         if (hotel.addCustomer(customer1)) {
             System.out.println("Đã thêm khách hàng: " + customer1.getName());
         } else {
             System.out.println("Thêm khách hàng thất bại: CMND đã tồn tại");
         }
 
-        // Nhật - In danh sách khách
+
         System.out.println("\nDanh sách khách hàng:");
-        for (Customer c : hotel.getCustomers()) {
-            System.out.println("Tên: " + c.getName() + ", CMND: " + c.getIdCard() + ", SĐT: " + c.getPhone());
-        }
-
-        // Đạt - Quản lí phòng
-        System.out.println("\nDanh Sách Phòng");
-        for (Room room : hotel.getRooms()) {
-            System.out.println("Phòng: " + room.getRoomNumber() +
-                    ", Loại: " + room.getType() +
-                    ", Trạng thái: " + (room.isAvailable() ? "Trống" : "Đã đặt"));
-        }
-
-        // Bảo - Đặt Phòng
-        System.out.println("\nĐặt phòng");
-        Room room201 = hotel.getRooms().stream()
-                .filter(r -> r.getRoomNumber() == 201)
-                .findFirst()
-                .orElse(null);
-
-        if (room201 != null) {
-            Booking booking = new Booking(customer1, room201, LocalDate.of(2025, 5, 10), LocalDate.of(2025, 5, 12));
-            if (hotel.addBooking(booking)) {
-                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room201.getRoomNumber());
-            } else {
-                System.out.println("Thêm đặt phòng thất bại: Phòng không tồn tại hoặc đã được đặt");
+        if (hotel.getCustomers().isEmpty()) {
+            System.out.println("Chưa có khách hàng nào.");
+        } else {
+            for (Customer c : hotel.getCustomers()) {
+                System.out.println("Tên: " + c.getName() + ", CMND: " + c.getIdCard() + ", SĐT: " + c.getPhone());
             }
         }
 
-        // In danh sách đặt phòng
-        System.out.println("\nDanh sách đặt phòng:");
-        for (Booking b : hotel.getBookings()) {
-            System.out.println("Khách: " + b.getCustomer().getName() +
-                    ", Phòng: " + b.getRoom().getRoomNumber() +
-                    ", Loại: " + b.getRoom().getType() +
-                    ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
+        // Đặt phòng
+        System.out.println("\nĐặt phòng:");
+        System.out.print("Nhập số phòng muốn đặt: ");
+        int roomNumber;
+        try {
+            roomNumber = Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Số phòng không hợp lệ!");
+            scanner.close();
+            return;
         }
 
-        // Kiểm tra trạng thái phòng 201
-        System.out.println("\nTrạng thái phòng 201: " + (room201.isAvailable() ? "Trống" : "Đã đặt"));
+        Room room = hotel.getRooms().stream()
+                .filter(r -> r.getRoomNumber() == roomNumber)
+                .findFirst()
+                .orElse(null);
 
-        // Nhật - Xóa Khách Hàng
-        System.out.println("\n=== Xóa khách hàng ===");
-        if (hotel.removeCustomer("Tran Van Nhat")) {
-            System.out.println("Đã xóa khách hàng: Tran Van Nhat");
+        if (room != null) {
+            LocalDate checkIn = null, checkOut = null;
+            boolean validDate = false;
+
+            while (!validDate) {
+                try {
+                    System.out.print("Nhập ngày check-in (YYYY-MM-DD): ");
+                    checkIn = LocalDate.parse(scanner.nextLine().trim());
+                    System.out.print("Nhập ngày check-out (YYYY-MM-DD): ");
+                    checkOut = LocalDate.parse(scanner.nextLine().trim());
+
+                    if (checkOut.isBefore(checkIn) || checkOut.isEqual(checkIn)) {
+                        System.out.println("Ngày check-out phải sau ngày check-in!");
+                    } else {
+                        validDate = true;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Định dạng ngày không hợp lệ! Vui lòng nhập theo định dạng YYYY-MM-DD.");
+                }
+            }
+
+            Booking booking = new Booking(customer1, room, checkIn, checkOut);
+            if (hotel.addBooking(booking)) {
+                System.out.println("Đã thêm đặt phòng cho khách: " + customer1.getName() + ", phòng: " + room.getRoomNumber());
+            } else {
+                System.out.println("Thêm đặt phòng thất bại: Phòng không tồn tại hoặc đã được đặt");
+            }
         } else {
-            System.out.println("Không tìm thấy khách hàng: Tran Van Nhat");
+            System.out.println("Phòng " + roomNumber + " không tồn tại!");
         }
 
-        // In lại danh sách khách hàng sau khi xóa
+
+        System.out.println("\nDanh sách đặt phòng:");
+        if (hotel.getBookings().isEmpty()) {
+            System.out.println("Chưa có đặt phòng nào.");
+        } else {
+            for (Booking b : hotel.getBookings()) {
+                System.out.println("Khách: " + b.getCustomer().getName() +
+                        ", Phòng: " + b.getRoom().getRoomNumber() +
+                        ", Loại: " + (b.getRoom().getType() != null ? b.getRoom().getType() : "Không xác định") +
+                        ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
+            }
+        }
+
+
+        System.out.println("\nTrạng thái phòng " + roomNumber + ": " + (room != null && room.isAvailable() ? "Trống" : "Đã đặt"));
+
+        // Xóa khách hàng
+        System.out.println("\nXóa khách hàng");
+        System.out.print("Nhập tên hoặc CMND khách hàng muốn xóa: ");
+        String identifier = scanner.nextLine().trim();
+        if (hotel.removeCustomer(identifier)) {
+            System.out.println("Đã xóa khách hàng: " + identifier);
+        } else {
+            System.out.println("Không tìm thấy khách hàng: " + identifier);
+        }
+
+
         System.out.println("\nDanh sách khách hàng sau khi xóa:");
         if (hotel.getCustomers().isEmpty()) {
             System.out.println("Chưa có khách hàng nào.");
@@ -81,7 +134,7 @@ public class HotelManagementTest {
             }
         }
 
-        // In lại danh sách đặt phòng sau khi xóa khách hàng
+
         System.out.println("\nDanh sách đặt phòng sau khi xóa khách hàng:");
         if (hotel.getBookings().isEmpty()) {
             System.out.println("Chưa có đặt phòng nào.");
@@ -89,12 +142,18 @@ public class HotelManagementTest {
             for (Booking b : hotel.getBookings()) {
                 System.out.println("Khách: " + b.getCustomer().getName() +
                         ", Phòng: " + b.getRoom().getRoomNumber() +
-                        ", Loại: " + b.getRoom().getType() +
+                        ", Loại: " + (b.getRoom().getType() != null ? b.getRoom().getType() : "Không xác định") +
                         ", Từ: " + b.getCheckIn() + " đến " + b.getCheckOut());
             }
         }
 
-        // Kiểm tra trạng thái phòng 201 sau khi xóa khách
-        System.out.println("\nTrạng thái phòng 201 sau khi xóa khách: " + (room201.isAvailable() ? "Trống" : "Đã đặt"));
+
+        room = hotel.getRooms().stream()
+                .filter(r -> r.getRoomNumber() == roomNumber)
+                .findFirst()
+                .orElse(null);
+        System.out.println("\nTrạng thái phòng " + roomNumber + " sau khi xóa khách: " + (room != null && room.isAvailable() ? "Trống" : "Đã đặt"));
+
+        scanner.close();
     }
 }
