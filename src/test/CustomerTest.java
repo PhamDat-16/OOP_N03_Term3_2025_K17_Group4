@@ -1,6 +1,6 @@
 package test;
 
-import model.Customer;
+import QuanLyKhachSan.model.Customer;
 
 public class CustomerTest {
     public static void TestCustomer() {

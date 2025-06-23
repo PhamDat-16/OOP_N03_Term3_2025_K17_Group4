@@ -1,8 +1,8 @@
 package test;
 
-import model.Booking;
-import model.Customer;
-import model.Room;
+import QuanLyKhachSan.model.Booking;
+import QuanLyKhachSan.model.Customer;
+import QuanLyKhachSan.model.Room;
 import java.time.LocalDate;
 
 public class BookingTest {

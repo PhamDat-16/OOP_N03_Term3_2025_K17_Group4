@@ -1,8 +1,8 @@
 package test;
 
-import model.Booking;
-import model.Customer;
-import model.Room;
+import QuanLyKhachSan.model.Booking;
+import QuanLyKhachSan.model.Customer;
+import QuanLyKhachSan.model.Room;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -12,8 +12,7 @@ public class HotelManagementTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         HotelManagement hotel = new HotelManagement();
-
-
+        
         System.out.println("\nDanh Sách Phòng Sau Khởi Tạo:");
         if (hotel.getRooms().isEmpty()) {
             System.out.println("Chưa có phòng nào.");
