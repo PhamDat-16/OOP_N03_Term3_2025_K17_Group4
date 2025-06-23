@@ -1,6 +1,6 @@
 
 
-import javax.swing.*;
+
 import test.RoomTest;
 import test.CustomerTest;
 import test.BookingTest;
