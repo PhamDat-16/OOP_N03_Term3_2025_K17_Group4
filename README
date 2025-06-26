@@ -1,0 +1,114 @@
+
+# 💻Chương trình quản lý khách sạn
+
+# 📖 Mô Tả
+Chương trình quản lý khách sạn là một ứng dụng phần mềm được thiết kế để giúp quản lý các hoạt động của một khách sạn, bao gồm việc theo dõi các phòng, khách hàng, và các dịch vụ liên quan. Chương trình này có thể bao gồm nhiều tính năng khác nhau để hỗ trợ các công việc quản lý, ví dụ như đặt phòng, trả phòng, xem thông tin phòng, và quản lý khách hàng.
+
+
+# 📌Giao diện người dùng (UI) có thể bao gồm các phần:
+
+- Giao diện quản lý phòng: Cho phép thêm thông tin khách hàng đặt phòng, số phòng, CMND, phone, ngày đặt, ngày rời đi.
+
+- Giao diện quản lý khách hàng: Hiển thị thông tin khách hàng đã nhập vào và có chức năng xóa thông tin khách hàng.
+
+- Giao diện kiểm tra phòng: Hiển thị Số phòng, loại phòng và trạng thái của phòng đó.
+
+- Giao diện báo cáo: Hiển thị Tên khách hàng, số phòng, loại phòng đang hoạt động.
+
+
+
+# 👥 Thành Viên Nhóm
+1 Tran Van Nhat
+
+2	Nguyen Duy Bao
+
+3	Pham Van Dat
+
+4	Nguyen Le Thu
+
+
+
+# 🚀 Công Nghệ Sử Dụng
+
+•	✅Ngôn ngữ: Java
+
+•	💾Database: MySQL
+
+•🔌Kết nối DB: JDBC
+
+•	💻Giao Diện: Spring Boot
+
+
+
+# Nội Dung 01:
+Project 04. Xây dựng ứng dụng quản lý khách sạn.
+Yêu cầu chính:
+- Java Spring Boot
+- Giao diện đơn giản
+- Dữ liệu lưu vào file nhị phân
+- Lưu trữ nội bộ bằng các Collection như ArrayList , Map , LinkedList,...
+
+
+# 📋Cách Sử Dụng
+# 1.	Khởi Động Chương Trình:
+
+o	Chạy lớp ServingWebContentApplication.Java để mở giao diện chính (MainDashboard).
+
+# 2.	Giao Diện Chính:
+o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
+
+o	👤Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
+
+o	🧾Kiểm Tra Phòng: Nhấn nút "Danh Sách Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
+
+o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
+
+
+# 🏆Phát triển trong tương lai:
+- Tính tổng tiền thuê cho từng khách hàng
+- Thông kê các phòng đã có người ở, số lượng khách thuê
+- Tìm kiêm khách sạn thuê dài hạn
+-
+# Các lớp cần thiết:
+- Customer
+- Booking
+- Room
+# Nội Dung 02:
+- UML Class Diagram (mô tả mối quan hệ giữa các lớp):
+![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
+
+# Nội dung 03:
+-01:
+https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing
+-02:
+https://drive.google.com/file/d/1AsSR0mHNE9UGVOE0k1nJYVHmSVLO9Z0k/view?usp=sharing
+-03:
+## Lưu đồ thuật toán chức năng chính
+
+Dưới đây là lưu đồ thuật toán cho phương thức `main` trong `HotelManagement.java`, thể hiện chức năng `addBooking`:
+
+![Lưu đồ thuật toán chức năng chính](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view?usp=sharing)
+## Phân công công việc
+
+- **Sinh viên Nhật**: Thực hiện chức năng thêm khách hàng mới (`addNewCustomer`) trong file `test/AddCustomer.java`.
+- **Sinh viên Bảo**: Thực hiện chức năng tìm phòng trống (`findAvailableRoom`) trong file `test/FindRoom.java`.
+- **Sinh viên Đạt**: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (`bookRoomAndCheckStatus`) trong file `test/BookRoom.java`.
+- **Cả nhóm**: Gọi các chức năng con trong phương thức `main` trong file `test/Main.java`.
+
+## Mô tả các phương thức
+Thành Viên 1: Nhật MSV 230170625
+Nhiệm vụ: Thêm, xóa trong thông tin khách hàng
+Thành Viên 2: Bảo MSV  23017133
+Nhiệm vụ: Check tra, In list room
+Thành Viên 3: Đạt MSV 23017150
+Nhiệm vụ: Thêm, xóa, trong danh sách phòng
+ 
+
+- **addNewCustomer (Trần Văn Nhật)**:
+  -Cho phép nhập thông tin khách hàng bao gồm Name, idCard, Phone. Kiểm tra xem thông tin đó đã tồn tại trong danh sách hay chưa thông qua hàm addCustomer từ class HotelManagement nếu tồn tại thì không được thêm vào danh sách, còn chưa thì thông tin được nhập vào thành công
+
+- **findAvailableRoom (Nguyễn Duy Bảo)**:
+  -Mô tả: In danh sách phòng và Kiểm tra phòng đó có tồn tại hay còn trống hay không thông qua hàm ở phương thức HotelManagement
+
+- **bookRoomAndCheckStatus (Phạm Văn Đạt)**:
+  - Mô tả: Thêm thông tin đặt hàng và bổ sung thông tin phòng. Kiểm tra xem thông tin đó có tồn tại hay không thông qua các phương thức kiểm tra ở Class Hotel Management. Nếu không tồn tại thì sẽ được bổ sung thành công. Hết thời gian đó sẽ báo lỗi. Sau phần này thêm hoặc xóa sẽ ra danh sách.
