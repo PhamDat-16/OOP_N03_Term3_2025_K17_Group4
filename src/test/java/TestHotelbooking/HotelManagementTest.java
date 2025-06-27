@@ -1,4 +1,4 @@
-package test;
+package TestHotelbooking;
 
 import QuanLyKhachSan.model.Booking;
 import QuanLyKhachSan.model.Customer;
