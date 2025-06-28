@@ -3,142 +3,151 @@ package QuanLyKhachSan.service;
 import QuanLyKhachSan.model.Booking;
 import QuanLyKhachSan.model.Customer;
 import QuanLyKhachSan.model.Room;
+import QuanLyKhachSan.repository.BookingRepository;
+import QuanLyKhachSan.repository.CustomerRepository;
+import QuanLyKhachSan.repository.RoomRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid; // Thay javax.validation.Valid
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class HotelManagement {
     private static final Logger logger = LoggerFactory.getLogger(HotelManagement.class);
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Customer> customers = new ArrayList<>();
-    private final List<Booking> bookings = new ArrayList<>();
 
-    public HotelManagement() {
-        initializeRooms();
-    }
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    private void initializeRooms() {
-        String[] roomTypes = {"Đơn", "Đôi"};
-        for (int floor = 2; floor <= 6; floor++) {
-            for (int i = 1; i <= 3; i++) {
-                int roomNumber = floor * 100 + i;
-                String type = roomTypes[(roomNumber % 2 == 0) ? 1 : 0];
-                rooms.add(new Room(roomNumber, type, true));
+    @Autowired
+    private RoomRepository roomRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @PostConstruct
+    public void initializeRooms() {
+        if (roomRepository.count() == 0) {
+            String[] roomTypes = {"Đơn", "Đôi"};
+            for (int floor = 2; floor <= 6; floor++) {
+                for (int i = 1; i <= 3; i++) {
+                    int roomNumber = floor * 100 + i;
+                    String type = roomTypes[(roomNumber % 2 == 0) ? 1 : 0];
+                    Room room = new Room(roomNumber, type, true);
+                    roomRepository.save(room);
+                }
             }
+            logger.info("Đã khởi tạo {} phòng.", roomRepository.count());
         }
-        logger.info("Đã khởi tạo {} phòng", rooms.size());
     }
 
-    public boolean addCustomer(Customer customer) {
+    public boolean addCustomer(@Valid Customer customer) {
         if (customer == null || customer.getIdCard() == null || customer.getIdCard().trim().isEmpty() ||
                 !customer.getIdCard().matches("\\d{9,12}") || customer.getPhone() == null ||
-                !customer.getPhone().matches("\\d{10,11}") ||
-                customers.stream().anyMatch(c -> c != null && c.getIdCard().equals(customer.getIdCard()))) {
-            logger.warn("Dữ liệu khách hàng không hợp lệ hoặc bị trùng: {}", customer);
+                !customer.getPhone().matches("\\d{10,11}") || customerRepository.existsById(customer.getIdCard())) {
+            logger.warn("Dữ liệu khách hàng không hợp lệ hoặc đã tồn tại: {}", customer);
             return false;
         }
-        customers.add(customer);
-        logger.info("Đã thêm khách hàng: {}", customer.getIdCard());
+        customerRepository.save(customer);
+        logger.info("Đã thêm khách hàng với CMND/CCCD: {}", customer.getIdCard());
         return true;
     }
 
     public boolean deleteCustomer(String idCard) {
         if (idCard == null || idCard.trim().isEmpty()) {
-            logger.warn("CMND/CCCD không hợp lệ!");
+            logger.warn("CMND/CCCD không hợp lệ để xóa.");
             return false;
         }
-        boolean removed = customers.removeIf(c -> c != null && c.getIdCard().equals(idCard.trim()));
-        if (removed) {
-            bookings.removeIf(b -> b != null && b.getCustomer() != null && b.getCustomer().getIdCard().equals(idCard));
-            rooms.forEach(r -> {
-                if (r != null && bookings.stream().noneMatch(b -> b != null && b.getRoom() != null && b.getRoom().getRoomNumber() == r.getRoomNumber())) {
-                    r.setAvailable(true);
+        if (customerRepository.existsById(idCard)) {
+            bookingRepository.deleteAll(bookingRepository.findByCustomerIdCard(idCard));
+            customerRepository.deleteById(idCard);
+            roomRepository.findAll().forEach(room -> {
+                if (bookingRepository.findAll().stream().noneMatch(b -> b.getRoom().getRoomNumber() == room.getRoomNumber())) {
+                    room.setAvailable(true);
+                    roomRepository.save(room);
                 }
             });
-            logger.info("Đã xóa khách hàng: {}", idCard);
+            logger.info("Đã xóa khách hàng với CMND/CCCD: {}", idCard);
             return true;
         }
-        logger.warn("Không tìm thấy khách hàng để xóa: {}", idCard);
+        logger.warn("Không tìm thấy khách hàng với CMND/CCCD: {}", idCard);
         return false;
     }
 
-    public boolean updateCustomer(Customer updatedCustomer) {
-        if (updatedCustomer == null || updatedCustomer.getIdCard() == null ||
-                !updatedCustomer.getIdCard().matches("\\d{9,12}") ||
-                updatedCustomer.getPhone() == null || !updatedCustomer.getPhone().matches("\\d{10,11}") ||
-                updatedCustomer.getName() == null || updatedCustomer.getName().trim().isEmpty()) {
+    public boolean updateCustomer(@Valid Customer updatedCustomer) {
+        if (updatedCustomer == null || updatedCustomer.getIdCard() == null || updatedCustomer.getIdCard().trim().isEmpty() ||
+                !updatedCustomer.getIdCard().matches("\\d{9,12}") || updatedCustomer.getPhone() == null ||
+                !updatedCustomer.getPhone().matches("\\d{10,11}") || updatedCustomer.getName() == null ||
+                updatedCustomer.getName().trim().isEmpty()) {
             logger.warn("Dữ liệu khách hàng không hợp lệ để cập nhật: {}", updatedCustomer);
             return false;
         }
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i) != null && customers.get(i).getIdCard().equals(updatedCustomer.getIdCard())) {
-                customers.set(i, new Customer(updatedCustomer.getName(), updatedCustomer.getIdCard(), updatedCustomer.getPhone()));
-                bookings.forEach(b -> {
-                    if (b != null && b.getCustomer() != null && b.getCustomer().getIdCard().equals(updatedCustomer.getIdCard())) {
-                        b.setCustomer(new Customer(updatedCustomer.getName(), updatedCustomer.getIdCard(), updatedCustomer.getPhone()));
-                    }
-                });
-                logger.info("Đã cập nhật khách hàng: {}", updatedCustomer.getIdCard());
-                return true;
-            }
+        if (customerRepository.existsById(updatedCustomer.getIdCard())) {
+            customerRepository.save(updatedCustomer);
+            bookingRepository.findByCustomerIdCard(updatedCustomer.getIdCard()).forEach(booking -> {
+                booking.setCustomer(updatedCustomer);
+                bookingRepository.save(booking);
+            });
+            logger.info("Đã cập nhật khách hàng với CMND/CCCD: {}", updatedCustomer.getIdCard());
+            return true;
         }
-        logger.warn("Không tìm thấy khách hàng để cập nhật: {}", updatedCustomer.getIdCard());
+        logger.warn("Không tìm thấy khách hàng để cập nhật với CMND/CCCD: {}", updatedCustomer.getIdCard());
         return false;
     }
 
-    public boolean addBooking(Booking booking) {
+    public boolean addBooking(@Valid Booking booking) {
         if (booking == null || booking.getRoom() == null || booking.getCustomer() == null ||
                 booking.getCheckIn() == null || booking.getCheckOut() == null ||
                 !booking.getCheckOut().isAfter(booking.getCheckIn())) {
             logger.warn("Dữ liệu đặt phòng không hợp lệ: {}", booking);
             return false;
         }
-        Room room = rooms.stream()
-                .filter(r -> r != null && r.getRoomNumber() == booking.getRoom().getRoomNumber())
-                .findFirst()
-                .orElse(null);
+        Room room = roomRepository.findById(booking.getRoom().getRoomNumber()).orElse(null);
         if (room == null || !room.isAvailable()) {
-            logger.warn("Phòng không có sẵn: {}", booking.getRoom().getRoomNumber());
+            logger.warn("Phòng số {} không có sẵn.", booking.getRoom() != null ? booking.getRoom().getRoomNumber() : "không xác định");
             return false;
         }
-        if (customers.stream().noneMatch(c -> c != null && c.getIdCard().equals(booking.getCustomer().getIdCard()))) {
-            if (!addCustomer(new Customer(booking.getCustomer().getName(), booking.getCustomer().getIdCard(), booking.getCustomer().getPhone()))) {
+        if (!customerRepository.existsById(booking.getCustomer().getIdCard())) {
+            if (!addCustomer(booking.getCustomer())) {
                 logger.warn("Không thể thêm khách hàng để đặt phòng: {}", booking.getCustomer().getIdCard());
                 return false;
             }
         }
         room.setAvailable(false);
-        bookings.add(new Booking(booking.getCustomer(), room, booking.getCheckIn(), booking.getCheckOut()));
-        logger.info("Đã thêm đặt phòng cho phòng: {}", room.getRoomNumber());
+        roomRepository.save(room);
+        bookingRepository.save(booking);
+        logger.info("Đã đặt phòng số {} thành công.", room.getRoomNumber());
         return true;
     }
 
     public List<Room> getRooms() {
-        return rooms.stream()
-                .filter(r -> r != null)
+        return roomRepository.findAll().stream()
+                .filter(room -> room != null)
                 .collect(Collectors.toList());
     }
 
     public List<Customer> getActiveCustomers() {
-        List<Customer> activeCustomers = bookings.stream()
-                .filter(b -> b != null && b.getCustomer() != null && b.getCustomer().getIdCard() != null && !b.getCustomer().getIdCard().isEmpty() && b.getCustomer().getIdCard().matches("\\d{9,12}"))
+        List<Customer> activeCustomers = bookingRepository.findAll().stream()
+                .filter(booking -> booking != null && booking.getCustomer() != null && booking.getCustomer().getIdCard() != null &&
+                        !booking.getCustomer().getIdCard().isEmpty() && booking.getCustomer().getIdCard().matches("\\d{9,12}"))
                 .map(Booking::getCustomer)
-                .filter(c -> c != null && c.getIdCard() != null && !c.getIdCard().isEmpty() && c.getIdCard().matches("\\d{9,12}") &&
-                        c.getName() != null && !c.getName().isEmpty() &&
-                        c.getPhone() != null && !c.getPhone().isEmpty() && c.getPhone().matches("\\d{10,11}"))
+                .filter(customer -> customer != null && customer.getIdCard() != null && !customer.getIdCard().isEmpty() &&
+                        customer.getIdCard().matches("\\d{9,12}") && customer.getName() != null && !customer.getName().isEmpty() &&
+                        customer.getPhone() != null && !customer.getPhone().isEmpty() && customer.getPhone().matches("\\d{10,11}"))
                 .distinct()
                 .collect(Collectors.toList());
-        logger.debug("Đã tìm thấy {} khách hàng đang hoạt động", activeCustomers.size());
+        logger.debug("Tìm thấy {} khách hàng đang hoạt động.", activeCustomers.size());
         return activeCustomers;
     }
 
     public List<Booking> getBookings() {
-        return bookings.stream()
-                .filter(b -> b != null && b.getCustomer() != null && b.getRoom() != null)
+        return bookingRepository.findAll().stream()
+                .filter(booking -> booking != null && booking.getCustomer() != null && booking.getRoom() != null)
                 .collect(Collectors.toList());
     }
 }
