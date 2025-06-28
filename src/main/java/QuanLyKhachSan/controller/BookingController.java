@@ -3,12 +3,8 @@ package QuanLyKhachSan.controller;
 import QuanLyKhachSan.model.Booking;
 import QuanLyKhachSan.model.Customer;
 import QuanLyKhachSan.model.Room;
-<<<<<<< HEAD
 import QuanLyKhachSan.service.BookingManagementService;
 import QuanLyKhachSan.service.RoomManagementService;
-=======
-import QuanLyKhachSan.service.HotelManagement;
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -26,7 +22,6 @@ import java.util.stream.Collectors;
 @Controller
 public class BookingController {
     private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
-<<<<<<< HEAD
     private final BookingManagementService bookingManagementService;
     private final RoomManagementService roomManagementService;
 
@@ -36,22 +31,12 @@ public class BookingController {
         }
         this.bookingManagementService = bookingManagementService;
         this.roomManagementService = roomManagementService;
-=======
-    private final HotelManagement hotelManagement;
-
-    public BookingController(HotelManagement hotelManagement) {
-        this.hotelManagement = hotelManagement;
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
     }
 
     @GetMapping("/bookings/add")
     public String showAddBookingForm(Model model) {
         try {
-<<<<<<< HEAD
             List<Room> availableRooms = roomManagementService.getRooms().stream()
-=======
-            List<Room> availableRooms = hotelManagement.getRooms().stream()
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
                     .filter(r -> r != null && r.isAvailable())
                     .collect(Collectors.toList());
             model.addAttribute("rooms", availableRooms);
@@ -60,11 +45,7 @@ public class BookingController {
             }
             logger.info("Đã tải {} phòng trống cho form đặt phòng", availableRooms.size());
         } catch (Exception e) {
-<<<<<<< HEAD
             logger.error("Lỗi khi tải danh sách phòng: {}", e.getMessage(), e);
-=======
-            logger.error("Lỗi khi tải danh sách phòng: {}", e.getMessage());
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
             model.addAttribute("message", "Lỗi khi tải danh sách phòng!");
             model.addAttribute("rooms", new ArrayList<>());
         }
@@ -84,21 +65,12 @@ public class BookingController {
             redirectAttributes.addFlashAttribute("message", "Vui lòng điền đầy đủ và đúng định dạng (CMND: 9-12 số, SĐT: 10-11 số)!");
             return "redirect:/bookings/add";
         }
-<<<<<<< HEAD
         Room room = roomManagementService.getRooms().stream()
                 .filter(r -> r != null && r.getRoomNumber() == roomNumber)
                 .findFirst()
                 .orElse(null);
         if (room == null) {
             redirectAttributes.addFlashAttribute("message", "Phòng không tồn tại!");
-=======
-        Room room = hotelManagement.getRooms().stream()
-                .filter(r -> r != null && r.getRoomNumber() == roomNumber)
-                .findFirst()
-                .orElse(null);
-        if (room == null || !room.isAvailable()) {
-            redirectAttributes.addFlashAttribute("message", "Phòng không tồn tại hoặc đã được đặt!");
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
             return "redirect:/bookings/add";
         }
         try {
@@ -110,21 +82,13 @@ public class BookingController {
             }
             Customer customer = new Customer(customerName.trim(), customerIdCard.trim(), customerPhone.trim());
             Booking booking = new Booking(customer, room, checkInDate, checkOutDate);
-<<<<<<< HEAD
             if (bookingManagementService.addBooking(booking)) {
-=======
-            if (hotelManagement.addBooking(booking)) {
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
                 redirectAttributes.addFlashAttribute("message", "Đặt phòng thành công!");
             } else {
                 redirectAttributes.addFlashAttribute("message", "Đặt phòng thất bại do lỗi hệ thống!");
             }
         } catch (Exception e) {
-<<<<<<< HEAD
             logger.error("Lỗi khi phân tích ngày hoặc thêm đặt phòng: {}", e.getMessage(), e);
-=======
-            logger.error("Lỗi khi phân tích ngày hoặc thêm đặt phòng: {}", e.getMessage());
->>>>>>> d56c5aa2de41ef7167199ef36767c3cf1fc599fd
             redirectAttributes.addFlashAttribute("message", "Định dạng ngày không hợp lệ hoặc lỗi hệ thống!");
         }
         return "redirect:/bookings/add";
