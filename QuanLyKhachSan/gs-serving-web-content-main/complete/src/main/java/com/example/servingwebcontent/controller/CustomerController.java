@@ -18,26 +18,22 @@ import java.util.stream.Collectors;
 @Controller
 public class CustomerController {
     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-    private final CustomerManagementService customerManagementService;
 
-    public CustomerController(CustomerManagementService customerManagementService) {
-        if (customerManagementService == null) {
-            throw new IllegalArgumentException("CustomerManagementService cannot be null");
-        }
-        this.customerManagementService = customerManagementService;
+    private final CustomerManagementService customerService;
+
+    public CustomerController(CustomerManagementService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping("/customers/active")
     public String showActiveCustomers(Model model, @RequestParam(value = "identifier", required = false) String identifier) {
         try {
-            List<Customer> customers = customerManagementService.getActiveCustomers().stream()
-                    .filter(c -> c != null && c.getIdCard() != null && !c.getIdCard().isEmpty() && c.getIdCard().matches("\\d{9,12}"))
-                    .collect(Collectors.toList());
+            List<Customer> customers = customerService.getActiveCustomers();
             if (identifier != null && !identifier.trim().isEmpty()) {
                 String searchTerm = identifier.trim().toLowerCase();
                 customers = customers.stream()
-                        .filter(c -> (c.getName() != null && !c.getName().isEmpty() && c.getName().toLowerCase().contains(searchTerm)) ||
-                                c.getIdCard().contains(searchTerm))
+                        .filter(c -> (c.getName() != null && c.getName().toLowerCase().contains(searchTerm)) ||
+                                (c.getIdCard() != null && c.getIdCard().contains(searchTerm)))
                         .collect(Collectors.toList());
             }
             model.addAttribute("customers", customers);
@@ -45,7 +41,7 @@ public class CustomerController {
                 model.addAttribute("message", "Không có khách hàng nào để hiển thị!");
             }
         } catch (Exception e) {
-            logger.error("Lỗi khi tải danh sách khách hàng đang hoạt động: {}", e.getMessage(), e);
+            logger.error("Lỗi khi tải danh sách khách hàng: {}", e.getMessage());
             model.addAttribute("message", "Lỗi khi tải danh sách khách hàng: " + e.getMessage());
             model.addAttribute("customers", new ArrayList<>());
         }
@@ -54,14 +50,17 @@ public class CustomerController {
 
     @PostMapping("/customers/active/delete")
     public String deleteCustomer(@RequestParam("idCard") String idCard, RedirectAttributes redirectAttributes) {
-        if (idCard == null || idCard.trim().isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "CMND/CCCD không hợp lệ!");
-            return "redirect:/customers/active";
-        }
-        if (customerManagementService.deleteCustomer(idCard)) {
-            redirectAttributes.addFlashAttribute("message", "Xóa khách hàng thành công!");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Không tìm thấy khách hàng để xóa!");
+        logger.info("Yêu cầu xóa khách hàng với CMND/CCCD: {}", idCard);
+        try {
+            boolean success = customerService.deleteCustomer(idCard.trim());
+            if (success) {
+                redirectAttributes.addFlashAttribute("message", "Xóa khách hàng thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("message", "Không tìm thấy khách hàng để xóa hoặc CMND/CCCD không hợp lệ!");
+            }
+        } catch (Exception e) {
+            logger.error("Lỗi khi xóa khách hàng: {}", e.getMessage());
+            redirectAttributes.addFlashAttribute("message", "Lỗi khi xóa khách hàng: " + e.getMessage());
         }
         return "redirect:/customers/active";
     }
@@ -72,16 +71,18 @@ public class CustomerController {
             @RequestParam("name") String name,
             @RequestParam("phone") String phone,
             RedirectAttributes redirectAttributes) {
-        if (idCard == null || idCard.trim().isEmpty() || name == null || name.trim().isEmpty() ||
-                phone == null || !phone.matches("\\d{10,11}")) {
-            redirectAttributes.addFlashAttribute("message", "Dữ liệu không hợp lệ (SĐT: 10-11 số)!");
-            return "redirect:/customers/active";
-        }
-        Customer customer = new Customer(name.trim(), idCard.trim(), phone.trim());
-        if (customerManagementService.updateCustomer(customer)) {
-            redirectAttributes.addFlashAttribute("message", "Cập nhật khách hàng thành công!");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Không tìm thấy khách hàng để cập nhật!");
+        logger.info("Yêu cầu cập nhật khách hàng - ID: {}, Tên: {}, SĐT: {}", idCard, name, phone);
+        try {
+            Customer customer = new Customer(name.trim(), idCard.trim(), phone.trim());
+            boolean success = customerService.updateCustomer(customer);
+            if (success) {
+                redirectAttributes.addFlashAttribute("message", "Cập nhật khách hàng thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("message", "Cập nhật thất bại: Dữ liệu không hợp lệ hoặc khách hàng không tồn tại!");
+            }
+        } catch (Exception e) {
+            logger.error("Lỗi khi cập nhật khách hàng: {}", e.getMessage());
+            redirectAttributes.addFlashAttribute("message", "Lỗi khi cập nhật khách hàng: " + e.getMessage());
         }
         return "redirect:/customers/active";
     }

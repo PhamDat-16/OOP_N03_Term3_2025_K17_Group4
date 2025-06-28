@@ -31,9 +31,7 @@ public class RoomController {
     @GetMapping("/active-rooms")
     public String showActiveRooms(Model model) {
         try {
-            List<Booking> bookings = bookingManagementService.getBookings().stream()
-                    .filter(b -> b != null && b.getCustomer() != null && b.getRoom() != null)
-                    .collect(Collectors.toList());
+            List<Booking> bookings = bookingManagementService.getBookings();
             model.addAttribute("bookings", bookings);
             logger.info("Đã tải {} đặt phòng đang hoạt động", bookings.size());
         } catch (Exception e) {
@@ -47,9 +45,7 @@ public class RoomController {
     @GetMapping("/rooms")
     public String showAllRooms(Model model) {
         try {
-            List<Room> rooms = roomManagementService.getRooms().stream()
-                    .filter(r -> r != null)
-                    .collect(Collectors.toList());
+            List<Room> rooms = roomManagementService.getRooms();
             model.addAttribute("rooms", rooms);
             logger.info("Đã tải {} phòng", rooms.size());
         } catch (Exception e) {

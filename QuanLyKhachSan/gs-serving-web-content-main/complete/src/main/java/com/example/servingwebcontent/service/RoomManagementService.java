@@ -2,14 +2,13 @@ package com.example.servingwebcontent.service;
 
 import com.example.servingwebcontent.model.Room;
 import com.example.servingwebcontent.repository.RoomRepository;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomManagementService {
@@ -30,13 +29,18 @@ public class RoomManagementService {
                     roomRepository.save(room);
                 }
             }
-            logger.info("Đã khởi tạo {} phòng.", roomRepository.count());
+            logger.info("Khởi tạo {} phòng thành công.", roomRepository.count());
         }
     }
 
     public List<Room> getRooms() {
-        return roomRepository.findAll().stream()
-                .filter(room -> room != null)
-                .collect(Collectors.toList());
+        return roomRepository.findAll();
+    }
+
+    public void updateRoomAvailability(int roomNumber, boolean available) {
+        roomRepository.findById(roomNumber).ifPresent(room -> {
+            room.setAvailable(available);
+            roomRepository.save(room);
+        });
     }
 }

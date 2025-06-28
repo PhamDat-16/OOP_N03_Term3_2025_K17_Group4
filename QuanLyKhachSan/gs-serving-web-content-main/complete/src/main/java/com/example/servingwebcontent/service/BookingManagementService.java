@@ -29,34 +29,33 @@ public class BookingManagementService {
     private RoomRepository roomRepository;
 
     public boolean addBooking(@Valid Booking booking) {
-        if (booking == null || booking.getRoom() == null || booking.getCustomer() == null ||
+        if (booking == null || booking.getCustomer() == null || booking.getRoom() == null ||
                 booking.getCheckIn() == null || booking.getCheckOut() == null ||
                 !booking.getCheckOut().isAfter(booking.getCheckIn())) {
             logger.warn("Dữ liệu đặt phòng không hợp lệ: {}", booking);
             return false;
         }
+
         Room room = roomRepository.findById(booking.getRoom().getRoomNumber()).orElse(null);
         if (room == null || !room.isAvailable()) {
-            logger.warn("Phòng số {} không có sẵn.", booking.getRoom() != null ? booking.getRoom().getRoomNumber() : "không xác định");
+            logger.warn("Phòng {} không sẵn sàng.", booking.getRoom().getRoomNumber());
             return false;
         }
+
         if (!customerRepository.existsById(booking.getCustomer().getIdCard())) {
-            Customer customer = new Customer(booking.getCustomer().getName(), booking.getCustomer().getIdCard(), booking.getCustomer().getPhone());
-            if (!new CustomerManagementService().addCustomer(customer)) {
-                logger.warn("Không thể thêm khách hàng để đặt phòng: {}", booking.getCustomer().getIdCard());
-                return false;
-            }
+            customerRepository.save(booking.getCustomer());
         }
+
         room.setAvailable(false);
         roomRepository.save(room);
         bookingRepository.save(booking);
-        logger.info("Đã đặt phòng số {} thành công.", room.getRoomNumber());
+        logger.info("Đặt phòng thành công cho phòng {}", room.getRoomNumber());
         return true;
     }
 
     public List<Booking> getBookings() {
         return bookingRepository.findAll().stream()
-                .filter(booking -> booking != null && booking.getCustomer() != null && booking.getRoom() != null)
+                .filter(b -> b.getCustomer() != null && b.getRoom() != null)
                 .collect(Collectors.toList());
     }
 }

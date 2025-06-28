@@ -9,7 +9,8 @@
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Thêm Đặt Phòng</h1>
     <div th:if="${message}" class="bg-green-100 text-green-700 p-4 rounded mb-4" th:text="${message}"></div>
-    <form th:action="@{/bookings/add}" method="post" class="max-w-lg mx-auto bg-white p-6 rounded shadow">
+    <form th:action="@{/bookings/add}" method="post" class="max-w-lg mx-auto bg-white p-6 rounded shadow"
+          onsubmit="return confirm('Bạn có chắc chắn muốn đặt phòng này?')">
         <div class="mb-4">
             <label class="block text-gray-700">Tên Khách Hàng</label>
             <input type="text" name="customerName" class="w-full border p-2 rounded" required>
