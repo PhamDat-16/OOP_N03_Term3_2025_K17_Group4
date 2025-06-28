@@ -1,86 +1,104 @@
 
-# 💻Chương trình quản lý khách sạn
 
-# 📖 Mô Tả
-Chương trình quản lý khách sạn là một ứng dụng phần mềm được thiết kế để giúp quản lý các hoạt động của một khách sạn, bao gồm việc theo dõi các phòng, khách hàng, và các dịch vụ liên quan. Chương trình này có thể bao gồm nhiều tính năng khác nhau để hỗ trợ các công việc quản lý, ví dụ như đặt phòng, trả phòng, xem thông tin phòng, và quản lý khách hàng.
+# 💻 **Chương trình Quản lý Khách sạn**
 
+## 📖 **Mô tả**
+**Chương trình quản lý khách sạn** là một ứng dụng web được xây dựng bằng Java Spring Boot, được thiết kế để hỗ trợ quản lý các hoạt động của một khách sạn. Ứng dụng cung cấp các tính năng như **quản lý phòng**, **quản lý khách hàng**, **đặt và kiểm tra trạng thái phòng**, cũng như **hiển thị báo cáo** về các phòng đang hoạt động. Dữ liệu được lưu trữ trong **cơ sở dữ liệu MySQL**, thay vì file nhị phân như yêu cầu ban đầu, để đảm bảo **tính ổn định và mở rộng**.
 
-# 📌Giao diện người dùng (UI) có thể bao gồm các phần:
+## 📌 **Giao diện Người dùng (UI)**
+- **Giao diện Quản lý Phòng**: Cho phép thêm thông tin đặt phòng (**tên khách hàng**, **CMND**, **số điện thoại**, **số phòng**, **ngày nhận**, **ngày trả**).
+- **Giao diện Quản lý Khách hàng**: Hiển thị danh sách khách hàng, hỗ trợ **xóa** và **cập nhật** thông tin khách hàng.
+- **Giao diện Kiểm tra Phòng**: Hiển thị **số phòng**, **loại phòng**, và **trạng thái** (trống/đã đặt).
+- **Giao diện Báo cáo**: Hiển thị danh sách các phòng đang hoạt động với thông tin **tên khách hàng**, **số phòng**, và **loại phòng**.
 
-- Giao diện quản lý phòng: Cho phép thêm thông tin khách hàng đặt phòng, số phòng, CMND, phone, ngày đặt, ngày rời đi.
-  
-- Giao diện quản lý khách hàng: Hiển thị thông tin khách hàng đã nhập vào và có chức năng xóa thông tin khách hàng.
+## 👥 **Thành viên Nhóm**
+1. Trần Văn Nhật
+2. Nguyễn Duy Bảo
+3. Phạm Văn Đạt
+4. Nguyễn Lê Thu
 
-- Giao diện kiểm tra phòng: Hiển thị Số phòng, loại phòng và trạng thái của phòng đó.
+## 🚀 **Công nghệ Sử dụng**
+- **Ngôn ngữ**: Java
+- **Framework**: Spring Boot
+- **Cơ sở dữ liệu**: MySQL
+- **Kết nối DB**: JDBC (qua Spring Data JPA)
+- **Giao diện**: Thymeleaf (tích hợp với Spring Boot)
 
-- Giao diện báo cáo: Hiển thị Tên khách hàng, số phòng, loại phòng đang hoạt động.
+## 📋 **Hướng dẫn Sử dụng**
+### 1. **Khởi động Chương trình**
+- Mở terminal hoặc IDE, điều hướng đến thư mục dự án (`D:\hotelbooking`).
+- Chạy file `HotelbookingApplication.java` để khởi động ứng dụng:
+  ```bash
+  mvn spring-boot:run
+  ```
+- Ứng dụng sẽ chạy trên **cổng 8081** (hoặc **8080** nếu cổng 8081 đã được thay đổi trong `application.properties`).
 
+### 2. **Giao diện Chính**
+- **📦 Thêm Đặt Phòng**: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin (**tên**, **CMND**, **số điện thoại**, **số phòng**, **ngày đến**, **ngày đi**). URL: `http://localhost:8081/bookings/add`.
+- **👤 Quản Lý Khách Hàng**: Nhấn nút "Quản Lý Khách Hàng" để xem danh sách khách hàng, **xóa** hoặc **cập nhật** thông tin. URL: `http://localhost:8081/customers/active`.
+- **🧾 Kiểm Tra Phòng**: Nhấn nút "Danh Sách Phòng" để xem danh sách **15 phòng** (**số phòng**, **loại phòng**, **trạng thái**). URL: `http://localhost:8081/rooms`.
+- **🧱 Phòng Đang Hoạt Động**: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách đặt phòng hiện tại. URL: `http://localhost:8081/active-rooms`.
 
+### 3. **Yêu cầu Hệ thống**
+- **Java**: Phiên bản 17 (hoặc cao hơn).
+- **Maven**: Đã cài đặt để quản lý dependency.
+- **MySQL**: Đã cài đặt và tạo database `hotelbooking` với tài khoản `root` và mật khẩu `962005` (hoặc cấu hình lại trong `application.properties`).
 
-# 👥 Thành Viên Nhóm
-1 Tran Van Nhat
+## 🏆 **Phát triển trong Tương lai**
+- Tính **tổng tiền thuê** cho từng khách hàng.
+- **Thống kê** số lượng phòng đã có người ở và số khách thuê.
+- Tìm kiếm khách hàng **thuê dài hạn**.
+- Thêm giao diện **quản lý hóa đơn** và **lịch sử đặt phòng**.
 
-2	Nguyen Duy Bao
+## 📚 **Cấu trúc Dự án**
+### **Các lớp chính**
+- **Customer**: Lưu thông tin khách hàng (**tên**, **CMND**, **số điện thoại**).
+- **Room**: Lưu thông tin phòng (**số phòng**, **loại phòng**, **trạng thái**).
+- **Booking**: Lưu thông tin đặt phòng (**khách hàng**, **phòng**, **ngày nhận**, **ngày trả**).
 
-3	Pham Van Dat
+### **Các gói (Packages)**
+- `QuanLyKhachSan.controller`: Chứa các controller (**HomeController**, **BookingController**, **CustomerController**, **RoomController**).
+- `QuanLyKhachSan.service`: Chứa các service (**RoomManagementService**, **CustomerManagementService**, **BookingManagementService**).
+- `QuanLyKhachSan.repository`: Chứa các repository (**RoomRepository**, **CustomerRepository**, **BookingRepository**).
+- `QuanLyKhachSan.model`: Chứa các model (**Customer**, **Room**, **Booking**).
 
-4	Nguyen Le Thu
+## 📑 **Tài liệu Hỗ trợ**
+### 01. **UML Class Diagram**
+- Mô tả mối quan hệ giữa các lớp:
+  - [Xem UML Class Diagram](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
 
+### 02. **Lưu đồ Thuật toán**
+- Lưu đồ thuật toán cho chức năng chính **addBooking**:
+  - [Xem Lưu đồ Thuật toán](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view?usp=sharing)
 
+### 03. **Tài liệu Thêm**
+- [Tài liệu 01](https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing)
+- [Tài liệu 02](https://drive.google.com/file/d/1AsSR0mHNE9UGVOE0k1nJYVHmSVLO9Z0k/view?usp=sharing)
 
-# 🚀 Công Nghệ Sử Dụng
+## 👨‍💻 **Phân công Công việc**
+- **Trần Văn Nhật (MSV 230170625)**: Thực hiện chức năng **thêm**, **xóa**, và **cập nhật** thông tin khách hàng (`CustomerManagementService`).
+- **Nguyễn Duy Bảo (MSV 23017133)**: Thực hiện chức năng **kiểm tra** và **hiển thị danh sách phòng** (`RoomManagementService`).
+- **Phạm Văn Đạt (MSV 23017150)**: Thực hiện chức năng **đặt phòng** và **quản lý trạng thái phòng** (`BookingManagementService`).
+- **Nguyễn Lê Thu**: Hỗ trợ **tích hợp** và **phát triển giao diện** (Thymeleaf).
 
-•	✅Ngôn ngữ: Java
+## 📝 **Mô tả Các Phương thức**
+- **addNewCustomer (Trần Văn Nhật)**:
+  - Cho phép nhập thông tin khách hàng (**tên**, **CMND**, **số điện thoại**). Kiểm tra trùng lặp **CMND** trước khi thêm vào database thông qua `CustomerManagementService`.
+- **findAvailableRoom (Nguyễn Duy Bảo)**:
+  - Hiển thị danh sách phòng và kiểm tra **trạng thái trống/sử dụng** thông qua `RoomManagementService`.
+- **bookRoomAndCheckStatus (Phạm Văn Đạt)**:
+  - Thêm thông tin đặt phòng và cập nhật **trạng thái phòng**. Kiểm tra tính hợp lệ (**phòng trống**, **ngày hợp lệ**) thông qua `BookingManagementService`.
 
-•	💾Database: MySQL
+## ⚠️ **Lưu ý**
+- Đảm bảo **cổng 8080** hoặc **8081** không bị chiếm dụng (cấu hình trong `application.properties`).
+- Kiểm tra **kết nối MySQL** trước khi chạy ứng dụng.
+- Gửi phản hồi nếu cần hỗ trợ thêm về lỗi hoặc phát triển tính năng.
 
-• 🔌Kết nối DB: JDBC
+---
 
-•	💻Giao Diện: Swing
+### Lưu ý khi áp dụng
+1. **Cập nhật file**: Sao chép nội dung trên vào file `README.md` trong thư mục dự án (`D:\hotelbooking`).
+2. **Đồng bộ**: Sau khi cập nhật, chạy `mvn clean install` và `mvn spring-boot:run` để kiểm tra.
+3. **Điều chỉnh**: Nếu muốn giữ package `com.hotelbooking` thay vì `QuanLyKhachSan`, thay đổi tất cả các tham chiếu trong README và mã nguồn.
 
-
-
-# Nội Dung 01: 
-Project 04. Xây dựng ứng dụng quản lý khách sạn.
-Yêu cầu chính:
-- Java Spring Boot
-- Giao diện đơn giản
-- Dữ liệu lưu vào file nhị phân
-- Lưu trữ nội bộ bằng các Collection như ArrayList , Map , LinkedList,...
-
-  
-# 📋Cách Sử Dụng
-# 1.	Khởi Động Chương Trình:
-
-o	Chạy lớp HotelBookingGUI.Main để mở giao diện chính (MainDashboard).
-
-# 2.	Giao Diện Chính:
-o	📦Thêm Đặt Phòng: Nhấn nút "Thêm Đặt Phòng" để mở form nhập thông tin khách hàng (tên, CMND, số điện thoại) và đặt phòng (số phòng, ngày đến, ngày đi).
-
-o	👤Quản Lý Khách Hàng: Nhấn nút "Quản Lý Khách Hàng" để xóa khách hàng bằng cách nhập tên hoặc CMND, và xem danh sách khách hàng hiện tại.
-
-o	🧾Kiểm Tra Phòng: Nhấn nút "Kiểm Tra Phòng" để xem danh sách 15 phòng với thông tin số phòng, loại phòng, và trạng thái.
-
-o	🧱Phòng Đang Hoạt Động: Nhấn nút "Phòng Đang Hoạt Động" để xem danh sách các đặt phòng hiện tại.
-
-
-# 🏆Phát triển trong tương lai:
-- Tính tổng tiền thuê cho từng khách hàng
-- Thông kê các phòng đã có người ở, số lượng khách thuê
-- Tìm kiêm khách sạn thuê dài hạn
-- 
-# Các lớp cần thiết:
-- Customer
-- Booking
-- Room
-# Nội Dung 02:
-- UML Class Diagram (mô tả mối quan hệ giữa các lớp):
-![quanlykhachsan](https://github.com/user-attachments/assets/32a6823a-1911-4461-b014-6c90dadbf1f8)
-
-# Nội dung 03:
--01:
-https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view?usp=sharing
--02:
-https://drive.google.com/file/d/1AsSR0mHNE9UGVOE0k1nJYVHmSVLO9Z0k/view?usp=sharing
--03:
-
+Nếu bạn cần thêm chỉnh sửa hoặc hỗ trợ, hãy cho tôi biết! Hiện tại là **01:36 AM +07, Sunday, June 29, 2025**, tôi sẽ phản hồi ngay!
