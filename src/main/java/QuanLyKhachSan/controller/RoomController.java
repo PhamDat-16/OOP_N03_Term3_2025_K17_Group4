@@ -1,8 +1,8 @@
-package com.hotelbooking.controller;
+package QuanLyKhachSan.controller;
 
-import com.hotelbooking.model.Booking;
-import com.hotelbooking.model.Room;
-import com.hotelbooking.service.HotelManagement;
+import QuanLyKhachSan.model.Booking;
+import QuanLyKhachSan.model.Room;
+import QuanLyKhachSan.service.HotelManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

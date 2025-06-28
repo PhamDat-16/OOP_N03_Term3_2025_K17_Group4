@@ -1,4 +1,4 @@
-package com.hotelbooking.controller;
+package QuanLyKhachSan.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
