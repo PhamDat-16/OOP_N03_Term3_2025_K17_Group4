@@ -4,7 +4,7 @@
 
 Đây là ứng dụng web quản lý khách sạn được phát triển bằng **Java Spring Boot**, hỗ trợ các chức năng chính như:
 
-- ** 🏨 Quản lý phòng** (xem danh sách phòng, trạng thái)
+- 🏨 **Quản lý phòng (xem danh sách phòng, trạng thái)
 - 👤 **Quản lý khách hàng** (thêm, xóa, cập nhật)
 - 📦 **Đặt phòng** và quản lý tình trạng phòng
 - 📊 **Xem báo cáo các phòng đang hoạt động**
