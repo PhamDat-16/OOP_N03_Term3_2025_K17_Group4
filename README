@@ -101,3 +101,18 @@ UML Diagram:  https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/
 Đảm bảo MySQL đang hoạt động và cổng 8081 không bị chiếm dụng.
 Nếu xảy ra lỗi cổng, chỉnh sửa server.port=8081 trong application.properties.
 Kiểm tra kết nối database trong application.properties trước khi chạy.
+
+
+Phân công công việc:
+Sinh viên Nhật: Thực hiện chức năng thêm khách hàng mới (addNewCustomer) trong file test/AddCustomer.java.
+Sinh viên Bảo: Thực hiện chức năng tìm phòng trống (findAvailableRoom) trong file test/FindRoom.java.
+Sinh viên Đạt: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (bookRoomAndCheckStatus) trong file test/BookRoom.java.
+Cả nhóm: Gọi các chức năng con trong phương thức main trong file test/Main.java.
+
+Mô tả chi tiết các phương thức:
+addNewCustomer (Trần Văn Nhật - 230170625):
+Cho phép nhập thông tin khách hàng bao gồm Name, idCard, Phone. Kiểm tra xem thông tin đó đã tồn tại trong danh sách hay chưa thông qua hàm addCustomer từ class HotelManagement. Nếu tồn tại thì không được thêm vào danh sách, còn nếu chưa thì thông tin được nhập vào thành công.
+findAvailableRoom (Nguyễn Duy Bảo - 23017133):
+In danh sách phòng và kiểm tra phòng đó có tồn tại hay còn trống hay không thông qua hàm ở phương thức HotelManagement.
+bookRoomAndCheckStatus (Phạm Văn Đạt - 23017150):
+Thêm thông tin đặt phòng và bổ sung thông tin phòng. Kiểm tra xem thông tin đó có tồn tại hay không thông qua các phương thức kiểm tra ở class HotelManagement. Nếu không tồn tại thì sẽ được bổ sung thành công. Hết thời gian thì báo lỗi. Sau phần này thêm hoặc xóa sẽ ra danh sách.
