@@ -1,80 +1,93 @@
-# 💻 CHƯƠNG TRÌNH QUẢN LÝ KHÁCH SẠN
+💻 CHƯƠNG TRÌNH QUẢN LÝ KHÁCH SẠN
+📖 Giới thiệu
+Đây là ứng dụng web quản lý khách sạn được phát triển bằng Java Spring Boot, hỗ trợ các chức năng chính như:
 
-## 📖 Giới thiệu
+🏨 Quản lý phòng: Xem danh sách phòng, kiểm tra trạng thái.
+👤 Quản lý khách hàng: Thêm, xóa, cập nhật thông tin khách hàng.
+📦 Đặt phòng: Quản lý đặt phòng và cập nhật tình trạng phòng.
+📊 Xem báo cáo: Theo dõi các phòng đang hoạt động.
+Hệ thống sử dụng cơ sở dữ liệu MySQL và giao diện thân thiện với người dùng thông qua Thymeleaf và TailwindCSS.
 
-Đây là ứng dụng web quản lý khách sạn được phát triển bằng **Java Spring Boot**, hỗ trợ các chức năng chính như:
-
-- ** 🏨 Quản lý phòng** (xem danh sách phòng, trạng thái)
-- 👤 **Quản lý khách hàng** (thêm, xóa, cập nhật)
-- 📦 **Đặt phòng** và quản lý tình trạng phòng
-- 📊 **Xem báo cáo các phòng đang hoạt động**
-
-Hệ thống sử dụng cơ sở dữ liệu **MySQL** và giao diện thân thiện với người dùng qua **Thymeleaf + TailwindCSS**.
-
----
 👥 Thành viên nhóm
-| Họ tên         | Mã SV     | Vai trò                                 |
-| -------------- | --------- | --------------------------------------- |
-| Trần Văn Nhật  | 230170625 | Quản lý khách hàng (thêm/xóa/sửa)       |
-| Nguyễn Duy Bảo | 23017133  | Hiển thị và kiểm tra danh sách phòng    |
-| Phạm Văn Đạt   | 23017150  | Đặt phòng, cập nhật trạng thái phòng    |
-| Nguyễn Lê Thu  | -         | Hướng dẫn làm bài                       |
 
 
-## 🚀 Công nghệ sử dụng
+Họ tên	Mã SV	Vai trò
+Trần Văn Nhật	23010625	Quản lý khách hàng (thêm/xóa/sửa)
+Nguyễn Duy Bảo	23017133	Hiển thị và kiểm tra danh sách phòng
+Phạm Văn Đạt	23017150	Đặt phòng, cập nhật trạng thái phòng
+Nguyễn Lệ Thu	-	Hướng dẫn làm bài
+🚀 Công nghệ sử dụng
 
-| Thành phần          | Công nghệ                          |
-|---------------------|------------------------------------|
-| Backend             | Java 17 + Spring Boot              |
-| View Layer          | Thymeleaf + HTML + TailwindCSS     |
-| ORM & DB Access     | Spring Data JPA                    |
-| Database            | MySQL 8+                           |
-| Build Tool          | Maven                              |
+Thành phần	Công nghệ
+Backend	Java 17 + Spring Boot
+View Layer	Thymeleaf + HTML + TailwindCSS
+ORM & DB Access	Spring Data JPA
+Database	MySQL 8+
+Build Tool	Gradle
+📦 Cài đặt & Khởi chạy
+1. Cấu hình cơ sở dữ liệu
+-Tạo database trong MySQL:
 
----
-
-## 📦 Cài đặt & Khởi chạy
-
-### 1. Cấu hình cơ sở dữ liệu
-
-- Tạo database trong MySQL:
-
-```sql
 CREATE DATABASE hotelbooking;
+USE hotelbooking;
 
+-Cấu hình application.properties trong src/main/resources/ với thông tin kết nối MySQL
 
+spring.datasource.url=jdbc:mysql://localhost:3306/hotelbooking
+spring.datasource.username=root
+spring.datasource.password=962005
+spring.jpa.hibernate.ddl-auto=update
 
-# 🌐 Giao diện Người dùng (UI)
-| Chức năng            | URL                      | Mô tả                                   |
-| -------------------- | ------------------------ | --------------------------------------- |
-| Trang chủ            | `http://localhost:8081/` | Giao diện chọn chức năng                |
-| Đặt phòng            | `/bookings/add`          | Thêm đặt phòng mới                      |
-| Quản lý khách hàng   | `/customers/active`      | Xem, tìm kiếm, cập nhật, xóa khách hàng |
-| Danh sách phòng      | `/rooms`                 | Hiển thị tất cả phòng và trạng thái     |
-| Phòng đang hoạt động | `/active-rooms`          | Xem danh sách khách đã đặt phòng        |
+2. Yêu cầu hệ thống
+Java 17+
+Gradle (đã bao gồm wrapper trong dự án)
+MySQL 8+ (đã cài đặt và chạy)
+
+3. Khởi chạy ứng dụng
+Ứng dụng sẽ chạy trên http://localhost:8081/
+
+🌐 Giao diện Người dùng (UI)
+
+Chức năng	                 URL	                              Mô tả
+Trang chủ	            http://localhost:8081/	            Giao diện chọn chức năng
+Đặt phòng       	    /bookings/add	                    Thêm đặt phòng mới
+Quản lý khách hàng	    /customers/active	                Xem, tìm kiếm, cập nhật, xóa khách hàng
+Danh sách phòng	        /rooms	                            Hiển thị tất cả phòng và trạng thái
+Phòng đang hoạt động	/active-rooms	                    Xem danh sách khách đã đặt phòng
 
 
 🧱 Cấu trúc hệ thống
-src/
-├── com.hotelbooking
-│   ├── controller          // Home, Booking, Customer, Room
-│   ├── model               // Booking, Customer, Room
-│   ├── repository          // BookingRepository, CustomerRepository, RoomRepository
-│   ├── service             // BookingManagementService, CustomerManagementService, RoomManagementService
-│   └── HotelbookingApplication.java
-└── resources/
-    ├── templates/          // Các view Thymeleaf
-    └── application.properties
+
+QuanLyKhachSan/gs-serving-web-content-main/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── example/
+│   │   │           └── servingwebcontent/
+│   │   │               ├── ServingWebContentApplication.java
+│   │   │               ├── controller/
+│   │   │               │   └── GreetingController.java
+│   │   │               ├── model/
+│   │   │               └── service/
+│   │   ├── resources/
+│   │       ├── static/
+│   │       ├── templates/
+│   │       └── application.properties
+├── build.gradle
+├── gradle/
+│   └── wrapper/
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── settings.gradle
+└── README.md
 
 
 📌 Tính năng tương lai
-💵 Tính tổng tiền thuê theo số ngày
-
-📈 Thống kê phòng đang được sử dụng
-
-🧾 Tạo hóa đơn và lịch sử đặt phòng
-
-🔍 Tìm kiếm khách thuê dài hạn
+💵 Tính tổng tiền thuê theo số ngày.
+📈 Thống kê phòng đang được sử dụng.
+🧾 Tạo hóa đơn và lịch sử đặt phòng.
+🔍 Tìm kiếm khách thuê dài hạn.
 
 
 📚 Tài liệu tham khảo
@@ -84,11 +97,7 @@ Lưu đồ thuật toán: https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGC
 
 UML Diagram:  https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view
 
-
 ⚠️ Lưu ý khi chạy
 Đảm bảo MySQL đang hoạt động và cổng 8081 không bị chiếm dụng.
-
-Đảm bảo Java 17+ và Maven đã cài đặt.
-
-Nếu xảy ra lỗi port: đổi server.port=8081 trong application.properties.
-
+Nếu xảy ra lỗi cổng, chỉnh sửa server.port=8081 trong application.properties.
+Kiểm tra kết nối database trong application.properties trước khi chạy.
