@@ -46,6 +46,22 @@ MySQL 8+ (đã cài đặt và chạy)
 3. Khởi chạy ứng dụng
 Ứng dụng sẽ chạy trên http://localhost:8081/
 
+# Cách Chạy Trên Codespace
+Cài MySQL trực tiếp trong Codespace
+sudo apt update
+sudo apt install mysql-server
+sudo service mysql start
+
+# Đăng nhập và cấu hình
+sudo mysql
+
+Trong MySQL shell:
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '962005';
+CREATE DATABASE IF NOT EXISTS hotelbooking;
+FLUSH PRIVILEGES;
+EXIT;
+giữ cấu hình application.properties như hiện tại, rồi chạy lại Spring Boot.
+
 🌐 Giao diện Người dùng (UI)
 
 Chức năng	                 URL	                              Mô tả
