@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Khách Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-edit-btn]').forEach(button => {
+                console.log('Attaching event to button with data-edit-btn:', button.getAttribute('data-edit-btn'));
+                button.addEventListener('click', function() {
+                    const rowId = this.getAttribute('data-edit-btn');
+                    console.log('Edit clicked for rowId:', rowId);
+                    if (rowId) enableEdit(rowId);
+                    else console.error('No rowId found for edit button');
+                });
+            });
+
+            document.querySelectorAll('[data-save-btn]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const rowId = this.getAttribute('data-save-btn');
+                    const form = document.getElementById(`form-update-${rowId}`);
+                    if (form) {
+                        const nameInput = form.querySelector('input[name="name"]').value;
+                        const phoneInput = form.querySelector('input[name="phone"]').value;
+                        if (!nameInput || !phoneInput.match(/^\d{10,11}$/)) {
+                            showError('Tên không được để trống và số điện thoại phải có 10-11 số!');
+                            return;
+                        }
+                        form.submit();
+                    } else {
+                        showError('Không tìm thấy form cập nhật!');
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-cancel-btn]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const rowId = this.getAttribute('data-cancel-btn');
+                    if (rowId) cancelEdit(rowId);
+                    else console.error('No rowId found for cancel button');
+                });
+            });
+        });
+
+        function enableEdit(rowId) {
+            const row = document.getElementById(`row-${rowId}`);
+            if (!row) {
+                showError('Không tìm thấy hàng để chỉnh sửa!');
+                console.error('Row not found for rowId:', rowId);
+                return;
+            }
+            const cells = row.querySelectorAll('td.editable');
+            if (cells.length === 0) {
+                showError('Không tìm thấy ô nào để chỉnh sửa!');
+                console.error('No editable cells found for rowId:', rowId);
+                return;
+            }
+            cells.forEach((cell, index) => {
+                const value = cell.innerText.trim() || '';
+                cell.innerHTML = `<input type="text" value="${value}" class="w-full border p-1 rounded" oninput="updateForm('${rowId}', ${index}, this.value)">`;
+            });
+            document.getElementById(`edit-btn-${rowId}`).style.display = 'none';
+            document.getElementById(`save-btn-${rowId}`).style.display = 'inline-block';
+            document.getElementById(`cancel-btn-${rowId}`).style.display = 'inline-block';
+        }
+
+        function updateForm(rowId, index, value) {
+            const form = document.getElementById(`form-update-${rowId}`);
+            if (form) {
+                if (index === 0) form.querySelector('input[name="name"]').value = value;
+                if (index === 2) form.querySelector('input[name="phone"]').value = value;
+            } else {
+                showError('Không tìm thấy form cập nhật!');
+            }
+        }
+
+        function cancelEdit(rowId) {
+            const row = document.getElementById(`row-${rowId}`);
+            if (!row) {
+                showError('Không tìm thấy hàng để hủy chỉnh sửa!');
+                return;
+            }
+            const originalValues = row.dataset.original.split('|');
+            row.querySelectorAll('td.editable').forEach((cell, index) => {
+                cell.innerHTML = originalValues[index] || 'N/A';
+            });
+            document.getElementById(`edit-btn-${rowId}`).style.display = 'inline-block';
+            document.getElementById(`save-btn-${rowId}`).style.display = 'none';
+            document.getElementById(`cancel-btn-${rowId}`).style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Quản Lý Khách Hàng</h1>
+    <div id="error-message" class="bg-red-100 text-red-700 p-4 rounded mb-4 hidden"></div>
+    <div th:if="${message}" class="bg-green-100 text-green-700 p-4 rounded mb-4" th:text="${message}"></div>
+    <div class="mb-6">
+        <form th:action="@{/customers/active}" method="get" class="flex space-x-2">
+            <input type="text" name="identifier" placeholder="Tên hoặc CMND/CCCD" class="border p-2 rounded flex-grow">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">Tìm kiếm</button>
+        </form>
+    </div>
+    <table class="w-full border-collapse border border-gray-300">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="border border-gray-300 p-2">Tên</th>
+            <th class="border border-gray-300 p-2">CMND/CCCD</th>
+            <th class="border border-gray-300 p-2">Số Điện Thoại</th>
+            <th class="border border-gray-300 p-2">Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}"
+            th:if="${customer.idCard != null and !customer.idCard.isEmpty()}"
+            th:id="'row-' + ${customer.idCard}"
+            th:data-original="${customer.name != null ? customer.name : 'N/A'} + '|' + ${customer.idCard} + '|' + ${customer.phone != null ? customer.phone : 'N/A'}">
+            <td class="border border-gray-300 p-2 editable" th:text="${customer.name != null ? customer.name : 'N/A'}"></td>
+            <td class="border border-gray-300 p-2" th:text="${customer.idCard}"></td>
+            <td class="border border-gray-300 p-2 editable" th:text="${customer.phone != null ? customer.phone : 'N/A'}"></td>
+            <td class="border border-gray-300 p-2">
+                <button th:id="'edit-btn-' + ${customer.idCard}"
+                        th:attr="data-edit-btn=${customer.idCard}"
+                        class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-400">Sửa</button>
+                <button th:id="'save-btn-' + ${customer.idCard}"
+                        th:attr="data-save-btn=${customer.idCard}"
+                        style="display:none;"
+                        class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-400">Lưu</button>
+                <button th:id="'cancel-btn-' + ${customer.idCard}"
+                        th:attr="data-cancel-btn=${customer.idCard}"
+                        style="display:none;"
+                        class="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-400">Hủy</button>
+                <form th:id="'form-' + ${customer.idCard}"
+                      th:action="@{/customers/active/delete}" method="post" style="display:inline;">
+                    <input type="hidden" name="idCard" th:value="${customer.idCard}">
+                    <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này?')"
+                            class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-500">Xóa</button>
+                </form>
+                <form th:id="'form-update-' + ${customer.idCard}"
+                      th:action="@{/customers/active/update}" method="post" style="display:none;">
+                    <input type="hidden" name="idCard" th:value="${customer.idCard}">
+                    <input type="hidden" name="name" th:value="${customer.name != null ? customer.name : ''}">
+                    <input type="hidden" name="phone" th:value="${customer.phone != null ? customer.phone : ''}">
+                </form>
+            </td>
+        </tr>
+        <tr th:unless="${#lists.isEmpty(customers)}" th:if="${customers == null or #lists.isEmpty(customers)}">
+            <td colspan="4" class="border border-gray-300 p-2 text-center">Không có khách hàng nào.</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="mt-4 text-center">
+        <a href="/" class="text-blue-600 hover:underline">Quay lại</a>
+    </div>
+</div>
+</body>
+</html>
