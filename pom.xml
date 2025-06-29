@@ -114,7 +114,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.nhat.hotelbooking.HotelBookingApplication</mainClass>
+                    <mainClass>com.example.servingwebcontent.ServingWebContentApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
