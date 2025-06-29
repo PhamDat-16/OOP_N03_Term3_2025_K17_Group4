@@ -7,12 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hotelbooking" />
         <module name="serving-web-content-complete" />
         <module name="HotelBooking1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="hotelbooking" target="17" />
       <module name="hotelbooking (1)" target="17" />
     </bytecodeTargetLevel>
   </component>

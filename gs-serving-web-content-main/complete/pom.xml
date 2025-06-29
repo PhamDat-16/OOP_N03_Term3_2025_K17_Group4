@@ -84,9 +84,9 @@
 		</plugins>
 		<resources>
 			<resource>
-				<directory>complete/src/main/resources</directory>
+				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-		<sourceDirectory>complete/src/main/java</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 	</build>
 </project>
