@@ -2,8 +2,10 @@ package com.example.servingwebcontent.service;
 
 import com.example.servingwebcontent.model.Customer;
 import com.example.servingwebcontent.model.Booking;
+import com.example.servingwebcontent.model.Room;
 import com.example.servingwebcontent.repository.BookingRepository;
 import com.example.servingwebcontent.repository.CustomerRepository;
+import com.example.servingwebcontent.repository.RoomRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class CustomerManagementService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
+
 
     public boolean addCustomer(@Valid Customer customer) {
         if (customer == null || customer.getIdCard() == null || customer.getIdCard().trim().isEmpty() ||
@@ -63,7 +69,19 @@ public class CustomerManagementService {
         }
         if (customerRepository.existsById(idCard)) {
             // Xóa tất cả booking liên quan
-            bookingRepository.deleteAll(bookingRepository.findByCustomerIdCard(idCard));
+            List<Booking> bookings = bookingRepository.findByCustomerIdCard(idCard);
+
+            // trả phòng cho các booking này
+            bookings.forEach(booking -> {
+                if (booking.getRoom() != null) {
+                    Room room = booking.getRoom();
+                    room.setAvailable(true);
+                    roomRepository.save(room);
+                    logger.info("Đã trả phòng {}", room.getRoomNumber());
+                }
+            });
+
+            bookingRepository.deleteAll(bookings);
             customerRepository.deleteById(idCard);
             logger.info("Đã xóa khách hàng: {}", idCard);
             return true;
@@ -71,6 +89,7 @@ public class CustomerManagementService {
         logger.warn("Không tìm thấy khách hàng để xóa: {}", idCard);
         return false;
     }
+
 
     public List<Customer> getActiveCustomers() {
         return bookingRepository.findAll().stream()
