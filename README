@@ -1,134 +1,139 @@
-💻 CHƯƠNG TRÌNH QUẢN LÝ KHÁCH SẠN
-📖 Giới thiệu
-Đây là ứng dụng web quản lý khách sạn được phát triển bằng Java Spring Boot, hỗ trợ các chức năng chính như:
+# 💻 CHƯƠNG TRÌNH QUẢN LÝ KHÁCH SẠN
 
-🏨 Quản lý phòng: Xem danh sách phòng, kiểm tra trạng thái.
-👤 Quản lý khách hàng: Thêm, xóa, cập nhật thông tin khách hàng.
-📦 Đặt phòng: Quản lý đặt phòng và cập nhật tình trạng phòng.
-📊 Xem báo cáo: Theo dõi các phòng đang hoạt động.
-Hệ thống sử dụng cơ sở dữ liệu MySQL và giao diện thân thiện với người dùng thông qua Thymeleaf và TailwindCSS.
+## 📖 Giới thiệu
 
-👥 Thành viên nhóm
+Đây là ứng dụng web quản lý khách sạn được phát triển bằng **Java Spring Boot**, hỗ trợ các chức năng chính như:
 
+* 🏨 **Quản lý phòng:** Xem danh sách phòng, kiểm tra trạng thái.
+* 👤 **Quản lý khách hàng:** Thêm, xóa, cập nhật thông tin khách hàng.
+* 📦 **Đặt phòng:** Quản lý đặt phòng và cập nhật tình trạng phòng.
+* 📊 **Xem báo cáo:** Theo dõi các phòng đang hoạt động.
 
-Họ tên	Mã SV	Vai trò
-Trần Văn Nhật	23010625	Quản lý khách hàng (thêm/xóa/sửa)
-Nguyễn Duy Bảo	23017133	Hiển thị và kiểm tra danh sách phòng
-Phạm Văn Đạt	23017150	Đặt phòng, cập nhật trạng thái phòng
-Nguyễn Lệ Thu	-	Hướng dẫn làm bài
-🚀 Công nghệ sử dụng
+Hệ thống sử dụng cơ sở dữ liệu **MySQL** và giao diện thân thiện với người dùng thông qua **Thymeleaf** và **TailwindCSS**.
 
-Thành phần	Công nghệ
-Backend	Java 17 + Spring Boot
-View Layer	Thymeleaf + HTML + TailwindCSS
-ORM & DB Access	Spring Data JPA
-Database	MySQL 8+
-Build Tool	Gradle
-📦 Cài đặt & Khởi chạy
-1. Cấu hình cơ sở dữ liệu
--Tạo database trong MySQL:
+## 👥 Thành viên nhóm
 
+| Họ tên         | Mã SV    | Vai trò                              |
+| -------------- | -------- | ------------------------------------ |
+| Trần Văn Nhật  | 23010625 | Quản lý khách hàng (thêm/xóa/sửa)    |
+| Nguyễn Duy Bảo | 23017133 | Hiển thị và kiểm tra danh sách phòng |
+| Phạm Văn Đạt   | 23017150 | Đặt phòng, cập nhật trạng thái phòng |
+| Nguyễn Lệ Thu  | -        | Hướng dẫn làm bài                    |
+
+## 🚀 Công nghệ sử dụng
+
+| Thành phần      | Công nghệ                      |
+| --------------- | ------------------------------ |
+| Backend         | Java 17 + Spring Boot          |
+| View Layer      | Thymeleaf + HTML + TailwindCSS |
+| ORM & DB Access | Spring Data JPA                |
+| Database        | MySQL 8+                       |
+| Build Tool      | **Maven**                      |
+
+## 📦 Cài đặt & Khởi chạy
+
+### 1. Cấu hình cơ sở dữ liệu
+
+Tạo database trong MySQL:
+
+```sql
 CREATE DATABASE hotelbooking;
 USE hotelbooking;
+```
 
--Cấu hình application.properties trong src/main/resources/ với thông tin kết nối MySQL
+Cấu hình `application.properties` trong `src/main/resources/`:
 
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/hotelbooking
 spring.datasource.username=root
 spring.datasource.password=962005
 spring.jpa.hibernate.ddl-auto=update
+```
 
-2. Yêu cầu hệ thống
-Java 17+
-Gradle (đã bao gồm wrapper trong dự án)
-MySQL 8+ (đã cài đặt và chạy)
+### 2. Yêu cầu hệ thống
 
-3. Khởi chạy ứng dụng
-Ứng dụng sẽ chạy trên http://localhost:8081/
+* Java 17+
+* Maven
+* MySQL 8+
 
-# Cách Chạy Trên Codespace
-Cài MySQL trực tiếp trong Codespace
+### 3. Khởi chạy ứng dụng
+
+Ứng dụng sẽ chạy tại: [http://localhost:8081/](http://localhost:8081/)
+
+## 💻 Cách chạy trên Codespace
+
+```bash
 sudo apt update
 sudo apt install mysql-server
 sudo service mysql start
-
-# Đăng nhập và cấu hình
-sudo mysql
+```
 
 Trong MySQL shell:
+
+```sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '962005';
 CREATE DATABASE IF NOT EXISTS hotelbooking;
 FLUSH PRIVILEGES;
 EXIT;
-giữ cấu hình application.properties như hiện tại, rồi chạy lại Spring Boot.
+```
 
-🌐 Giao diện Người dùng (UI)
+## 🌐 Giao diện người dùng
 
-Chức năng	                 URL	                              Mô tả
-Trang chủ	            http://localhost:8081/	            Giao diện chọn chức năng
-Đặt phòng       	    /bookings/add	                    Thêm đặt phòng mới
-Quản lý khách hàng	    /customers/active	                Xem, tìm kiếm, cập nhật, xóa khách hàng
-Danh sách phòng	        /rooms	                            Hiển thị tất cả phòng và trạng thái
-Phòng đang hoạt động	/active-rooms	                    Xem danh sách khách đã đặt phòng
+| Chức năng            | URL                 | Mô tả                                   |
+| -------------------- | ------------------- | --------------------------------------- |
+| Trang chủ            | `/`                 | Giao diện chọn chức năng                |
+| Đặt phòng            | `/bookings/add`     | Thêm đặt phòng mới                      |
+| Quản lý khách hàng   | `/customers/active` | Xem, tìm kiếm, cập nhật, xóa khách hàng |
+| Danh sách phòng      | `/rooms`            | Hiển thị tất cả phòng và trạng thái     |
+| Phòng đang hoạt động | `/active-rooms`     | Xem danh sách khách đã đặt phòng        |
 
+## 🧱 Cấu trúc hệ thống
 
-🧱 Cấu trúc hệ thống
-
-QuanLyKhachSan/gs-serving-web-content-main/
+```
+QuanLyKhachSan/
 ├── src/
 │   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── example/
-│   │   │           └── servingwebcontent/
-│   │   │               ├── ServingWebContentApplication.java
-│   │   │               ├── controller/
-│   │   │               │   └── GreetingController.java
-│   │   │               ├── model/
-│   │   │               └── service/
-│   │   ├── resources/
-│   │       ├── static/
-│   │       ├── templates/
-│   │       └── application.properties
-├── build.gradle
-├── gradle/
-│   └── wrapper/
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
-├── settings.gradle
+│   │   ├── java/com/example/servingwebcontent/
+│   │   │   ├── ServingWebContentApplication.java
+│   │   │   ├── controller/
+│   │   │   ├── model/
+│   │   │   └── service/
+│   └── resources/
+│       ├── static/
+│       ├── templates/
+│       └── application.properties
+├── pom.xml
 └── README.md
+```
 
+## 📌 Tính năng tương lai
 
-📌 Tính năng tương lai
-💵 Tính tổng tiền thuê theo số ngày.
-📈 Thống kê phòng đang được sử dụng.
-🧾 Tạo hóa đơn và lịch sử đặt phòng.
-🔍 Tìm kiếm khách thuê dài hạn.
+* 💵 Tính tổng tiền thuê theo số ngày.
+* 📈 Thống kê phòng đang được sử dụng.
+* 🧾 Tạo hóa đơn và lịch sử đặt phòng.
+* 🔍 Tìm kiếm khách thuê dài hạn.
 
+## 📚 Tài liệu tham khảo
 
-📚 Tài liệu tham khảo
-Sơ đồ : https://github-production-user-asset-6210df.s3.amazonaws.com/208896553/446329549-32a6823a-1911-4461-b014-6c90dadbf1f8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250628T184250Z&X-Amz-Expires=300&X-Amz-Signature=35398fe21ff1c71d3f57409d3d1b6998d2733db2fec3e72398542d0800d6f96a&X-Amz-SignedHeaders=host
+* **Sơ đồ:** [Link ảnh](https://github-production-user-asset-6210df.s3.amazonaws.com/208896553/446329549-32a6823a-1911-4461-b014-6c90dadbf1f8.jpg)
+* **Lưu đồ thuật toán:** [Google Drive](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view)
+* **Biểu đồ UML:** [Google Drive](https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view)
 
-Lưu đồ thuật toán: https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view
+## ⚠️ Lưu ý khi chạy
 
-UML Diagram:  https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view
+* Đảm bảo **MySQL đang hoạt động**.
+* Kiểm tra **cổng 8081** có bị chiếm hay không.
+* Nếu có lỗi cổng: sửa `server.port=8081` trong `application.properties`.
 
-⚠️ Lưu ý khi chạy
-Đảm bảo MySQL đang hoạt động và cổng 8081 không bị chiếm dụng.
-Nếu xảy ra lỗi cổng, chỉnh sửa server.port=8081 trong application.properties.
-Kiểm tra kết nối database trong application.properties trước khi chạy.
+## 👨‍💼 Phân công công việc & Phương thức chi tiết
 
+* **Trần Văn Nhật:** `addNewCustomer` trong `test/AddCustomer.java`
+* **Nguyễn Duy Bảo:** `findAvailableRoom` trong `test/FindRoom.java`
+* **Phạm Văn Đạt:** `bookRoomAndCheckStatus` trong `test/BookRoom.java`
+* **Cả nhóm:** Gọi tất cả hàm trong `test/Main.java`
 
-Phân công công việc:
-Sinh viên Nhật: Thực hiện chức năng thêm khách hàng mới (addNewCustomer) trong file test/AddCustomer.java.
-Sinh viên Bảo: Thực hiện chức năng tìm phòng trống (findAvailableRoom) trong file test/FindRoom.java.
-Sinh viên Đạt: Thực hiện chức năng đặt phòng và kiểm tra trạng thái phòng (bookRoomAndCheckStatus) trong file test/BookRoom.java.
-Cả nhóm: Gọi các chức năng con trong phương thức main trong file test/Main.java.
+### Mô tả chi tiết:
 
-Mô tả chi tiết các phương thức:
-addNewCustomer (Trần Văn Nhật - 230170625):
-Cho phép nhập thông tin khách hàng bao gồm Name, idCard, Phone. Kiểm tra xem thông tin đó đã tồn tại trong danh sách hay chưa thông qua hàm addCustomer từ class HotelManagement. Nếu tồn tại thì không được thêm vào danh sách, còn nếu chưa thì thông tin được nhập vào thành công.
-findAvailableRoom (Nguyễn Duy Bảo - 23017133):
-In danh sách phòng và kiểm tra phòng đó có tồn tại hay còn trống hay không thông qua hàm ở phương thức HotelManagement.
-bookRoomAndCheckStatus (Phạm Văn Đạt - 23017150):
-Thêm thông tin đặt phòng và bổ sung thông tin phòng. Kiểm tra xem thông tin đó có tồn tại hay không thông qua các phương thức kiểm tra ở class HotelManagement. Nếu không tồn tại thì sẽ được bổ sung thành công. Hết thời gian thì báo lỗi. Sau phần này thêm hoặc xóa sẽ ra danh sách.
+* `addNewCustomer`: Nhập Name, idCard, Phone. Kiểm tra trùng. Nếu đã tồn tại thì không thêm.
+* `findAvailableRoom`: In danh sách, kiểm tra phòng trống/tồn tại.
+* `bookRoomAndCheckStatus`: Thêm thông tin đặt phòng, kiểm tra tồn tại, hết hạn thì báo lỗi.
