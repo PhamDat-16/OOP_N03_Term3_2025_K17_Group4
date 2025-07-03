@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tìm kiếm phòng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Tìm kiếm phòng</h1>
+    <a href="/rooms" class="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Quay lại</a>
+
+    <form method="get" th:action="@{/rooms/search}" class="mb-4">
+        <input type="number" name="roomNumber" placeholder="Nhập số phòng"
+               class="p-2 border rounded mr-2">
+        <button type="submit" class="p-2 bg-green-500 text-white rounded hover:bg-green-600">Tìm</button>
+    </form>
+
+    <div th:if="${room != null}" class="bg-white p-4 shadow rounded">
+        <h2 class="text-xl font-bold mb-2">Thông tin phòng</h2>
+        <p><strong>Số phòng:</strong> <span th:text="${room.roomNumber}"></span></p>
+        <p><strong>Loại phòng:</strong> <span th:text="${room.typeRoom}"></span></p>
+        <p><strong>Giá:</strong> <span th:text="${room.price}"></span></p>
+        <p><strong>Trạng thái:</strong> <span th:text="${room.available ? 'Còn trống' : 'Đã đặt'}"></span></p>
+    </div>
+
+    <div th:if="${room == null}" class="text-red-500">Không tìm thấy phòng!</div>
+</div>
+</body>
+</html>

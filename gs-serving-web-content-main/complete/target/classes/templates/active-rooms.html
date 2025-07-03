@@ -2,37 +2,39 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Phòng Đang Hoạt Động</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Danh sách đặt phòng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body class="bg-gray-100">
-<div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Phòng Đang Hoạt Động</h1>
-    <div th:if="${message}" class="bg-green-100 text-green-700 p-4 rounded mb-4" th:text="${message}"></div>
-    <table class="w-full border-collapse border border-gray-300">
+<body>
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Danh sách đặt phòng</h1>
+    <a href="/bookings" class="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Quay lại</a>
+    <div th:if="${message}" class="bg-red-100 text-red-700 p-2 mb-4" th:text="${message}"></div>
+    <table class="w-full border-collapse">
         <thead>
         <tr class="bg-gray-200">
-            <th class="border border-gray-300 p-2">Tên Khách Hàng</th>
-            <th class="border border-gray-300 p-2">Số Phòng</th>
-            <th class="border border-gray-300 p-2">Check-in</th>
-            <th class="border border-gray-300 p-2">Check-out</th>
+            <th class="p-2 border">ID</th>
+            <th class="p-2 border">Khách hàng</th>
+            <th class="p-2 border">Phòng</th>
+            <th class="p-2 border">Ngày nhận</th>
+            <th class="p-2 border">Ngày trả</th>
+            <th class="p-2 border">Thao tác</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="booking : ${bookings}" th:if="${bookings != null}">
-            <td class="border border-gray-300 p-2" th:text="${booking.customer != null ? booking.customer.name : 'N/A'}"></td>
-            <td class="border border-gray-300 p-2" th:text="${booking.room != null ? booking.room.roomNumber : 'N/A'}"></td>
-            <td class="border border-gray-300 p-2" th:text="${booking.checkIn != null ? booking.checkIn : 'N/A'}"></td>
-            <td class="border border-gray-300 p-2" th:text="${booking.checkOut != null ? booking.checkOut : 'N/A'}"></td>
-        </tr>
-        <tr th:if="${bookings == null or #lists.isEmpty(bookings)}">
-            <td colspan="4" class="border border-gray-300 p-2 text-center">Không có đặt phòng nào.</td>
+        <tr th:each="booking : ${bookings}">
+            <td class="p-2 border" th:text="${booking.id}"></td>
+            <td class="p-2 border" th:text="${booking.customer.name}"></td>
+            <td class="p-2 border" th:text="${booking.room.roomNumber}"></td>
+            <td class="p-2 border" th:text="${#temporals.format(booking.checkIn, 'yyyy-MM-dd')}"></td>
+            <td class="p-2 border" th:text="${#temporals.format(booking.checkOut, 'yyyy-MM-dd')}"></td>
+            <td class="p-2 border">
+                <a th:href="@{/bookings/edit(id=${booking.id})}" class="text-blue-600 hover:underline mr-2">Sửa</a>
+                <a th:href="@{/bookings/delete(id=${booking.id})}" class="text-red-600 hover:underline">Xóa</a>
+            </td>
         </tr>
         </tbody>
     </table>
-    <div class="mt-4 text-center">
-        <a href="/" class="text-blue-600 hover:underline">Quay lại</a>
-    </div>
 </div>
 </body>
 </html>

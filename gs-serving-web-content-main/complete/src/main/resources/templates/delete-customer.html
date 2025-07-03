@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa khách hàng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Xóa khách hàng</h1>
+    <a href="/customers" class="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Quay lại danh sách</a>
+
+    <div th:if="${message}" class="bg-red-100 text-red-700 p-2 mb-4" th:text="${message}"></div>
+
+    <div th:if="${customer != null}" class="mb-4">
+        <h2 class="text-xl font-bold">Thông tin khách hàng</h2>
+        <ul class="list-disc pl-5">
+            <li><strong>CMND/CCCD:</strong> <span th:text="${customer.idCard}"></span></li>
+            <li><strong>Họ tên:</strong> <span th:text="${customer.name}"></span></li>
+            <li><strong>SĐT:</strong> <span th:text="${customer.phone}"></span></li>
+            <li><strong>Email:</strong> <span th:text="${customer.email}"></span></li>
+            <li><strong>Thành phố:</strong> <span th:text="${customer.city}"></span></li>
+            <li><strong>Quốc gia:</strong> <span th:text="${customer.country}"></span></li>
+        </ul>
+
+        <form th:action="@{/customers/delete}" method="post" class="mt-4">
+            <input type="hidden" name="idCard" th:value="${customer.idCard}">
+            <button type="submit" class="bg-red-600 text-white p-2 rounded hover:bg-red-700"
+                    onclick="return confirm('Bạn có chắc muốn xóa khách hàng này không?')">
+                Xác nhận xóa
+            </button>
+        </form>
+    </div>
+
+    <div th:if="${customer == null}" class="text-red-700">
+        Không tìm thấy thông tin khách hàng để xóa.
+    </div>
+</div>
+</body>
+</html>

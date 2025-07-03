@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa đặt phòng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Sửa đặt phòng</h1>
+    <a href="/bookings/list" class="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Quay lại danh sách</a>
+
+    <div th:if="${message}" class="bg-red-100 text-red-700 p-2 mb-4" th:text="${message}"></div>
+
+    <form th:action="@{/bookings/edit}" method="post" class="space-y-4">
+        <input type="hidden" name="id" th:value="${booking.id}" />
+
+        <div>
+            <label class="block font-semibold">Khách hàng:</label>
+            <input type="text" th:value="${booking.customer.name}" class="w-full p-2 border rounded bg-gray-100" readonly />
+        </div>
+
+        <div>
+            <label class="block font-semibold">Số phòng:</label>
+            <select name="roomNumber" class="w-full p-2 border rounded" required>
+                <option th:each="room : ${rooms}" th:value="${room.roomNumber}" th:text="${room.roomNumber}"
+                        th:selected="${room.roomNumber == booking.room.roomNumber}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block font-semibold">Ngày nhận phòng:</label>
+            <input type="date" name="checkIn" th:value="${booking.checkIn}" class="w-full p-2 border rounded" required />
+        </div>
+
+        <div>
+            <label class="block font-semibold">Ngày trả phòng:</label>
+            <input type="date" name="checkOut" th:value="${booking.checkOut}" class="w-full p-2 border rounded" required />
+        </div>
+
+        <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600">Cập nhật</button>
+    </form>
+</div>
+</body>
+</html>

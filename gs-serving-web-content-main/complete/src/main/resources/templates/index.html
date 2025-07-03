@@ -1,19 +1,70 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
+    <title>Hotel Booking Management</title>
     <meta charset="UTF-8">
-    <title>Hệ Thống Quản Lý Khách Sạn</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+        .menu { margin: 20px 0; padding: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .menu a { margin-right: 15px; text-decoration: none; color: #0066cc; font-weight: bold; }
+        .menu a:hover { text-decoration: underline; }
+        .search-box { margin: 20px 0; }
+        .search-box input[type="text"] { padding: 8px; width: 200px; }
+        .search-box button { padding: 8px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .search-box button:hover { background-color: #45a049; }
+        table { border-collapse: collapse; width: 100%; max-width: 1000px; margin-top: 20px; background-color: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #ddd; }
+    </style>
 </head>
-<body class="bg-gray-100">
-<div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold text-center text-blue-900 mb-8">Bảng Điều Khiển Quản Lý Khách Sạn</h1>
-    <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
-        <a href="/bookings/add" class="block bg-blue-600 text-white text-center py-3 rounded hover:bg-blue-500">Thêm Đặt Phòng</a>
-        <a href="/rooms" class="block bg-blue-600 text-white text-center py-3 rounded hover:bg-blue-500">Danh Sách Phòng</a>
-        <a href="/customers/active" class="block bg-blue-600 text-white text-center py-3 rounded hover:bg-blue-500">Quản Lý Khách Hàng</a>
-        <a href="/active-rooms" class="block bg-blue-600 text-white text-center py-3 rounded hover:bg-blue-500">Phòng Đang Hoạt Động</a>
-    </div>
+<body>
+<div class="menu">
+    <a th:href="@{/customers}">Khách hàng</a>
+    <a th:href="@{/bookings}">Đặt phòng</a>
+    <a th:href="@{/rooms}">Phòng</a>
+    <a th:href="@{/active-bookings}">Danh sách đang hoạt động</a>
 </div>
+
+<h1>Quản lý Đặt phòng Khách sạn</h1>
+
+<!-- Phần tìm kiếm khách hàng theo CCCD -->
+<div class="search-box">
+    <form th:action="@{/active-bookings/search}" method="get">
+        <input type="text" name="idCard" placeholder="Nhập CCCD để tìm kiếm" />
+        <button type="submit">Tìm kiếm</button>
+    </form>
+</div>
+
+<!-- Hiển thị danh sách booking đang hoạt động -->
+<h2>Danh sách Đặt phòng Đang Hoạt động</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Khách hàng</th>
+        <th>Số phòng</th>
+        <th>Ngày nhận phòng</th>
+        <th>Ngày trả phòng</th>
+        <th>Số ngày</th>
+        <th>Giá phòng</th>
+        <th>Tổng tiền</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${activeBookings}">
+        <td th:text="${booking.id}"></td>
+        <td th:text="${booking.customer != null ? booking.customer.name : 'N/A'}"></td>
+        <td th:text="${booking.room != null ? booking.room.roomNumber : 'N/A'}"></td>
+        <td th:text="${#temporals.format(booking.checkIn, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#temporals.format(booking.checkOut, 'yyyy-MM-dd')}"></td>
+        <td th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(booking.checkIn, booking.checkOut)}"></td>
+        <td th:text="${booking.room != null ? booking.room.price : 0}"></td>
+        <td th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(booking.checkIn, booking.checkOut) * (booking.room != null ? booking.room.price : 0)}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

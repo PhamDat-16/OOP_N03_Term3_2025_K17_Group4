@@ -4,122 +4,189 @@ import com.example.servingwebcontent.model.Booking;
 import com.example.servingwebcontent.model.Customer;
 import com.example.servingwebcontent.model.Room;
 import com.example.servingwebcontent.service.BookingManagementService;
+import com.example.servingwebcontent.service.CustomerManagementService;
 import com.example.servingwebcontent.service.RoomManagementService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/bookings")
 public class BookingController {
-    private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private final BookingManagementService bookingManagementService;
-    private final RoomManagementService roomManagementService;
+    private final BookingManagementService bookingService;
+    private final CustomerManagementService customerService;
+    private final RoomManagementService roomService;
 
-    public BookingController(BookingManagementService bookingManagementService, RoomManagementService roomManagementService) {
-        if (bookingManagementService == null || roomManagementService == null) {
-            throw new IllegalArgumentException("BookingManagementService or RoomManagementService cannot be null");
-        }
-        this.bookingManagementService = bookingManagementService;
-        this.roomManagementService = roomManagementService;
+    public BookingController(BookingManagementService bookingService,
+                             CustomerManagementService customerService,
+                             @Qualifier("roomManagementServiceImpl") RoomManagementService roomService) {
+        this.bookingService = bookingService;
+        this.customerService = customerService;
+        this.roomService = roomService;
     }
 
-    @GetMapping("/bookings/add")
-    public String showAddBookingForm(Model model) {
-        try {
-            List<Room> availableRooms = roomManagementService.getRooms().stream()
-                    .filter(r -> r != null && r.isAvailable())
-                    .collect(Collectors.toList());
-            model.addAttribute("rooms", availableRooms);
-            if (availableRooms.isEmpty()) {
-                model.addAttribute("message", "Hiện không có phòng trống!");
-            }
-            logger.info("Đã tải {} phòng trống cho form đặt phòng", availableRooms.size());
-        } catch (Exception e) {
-            logger.error("Lỗi khi tải danh sách phòng: {}", e.getMessage(), e);
-            model.addAttribute("message", "Lỗi khi tải danh sách phòng!");
-            model.addAttribute("rooms", new ArrayList<>());
-        }
+    // Menu chính
+    @GetMapping
+    public String showBookingMenu() {
+        return "bookings";
+    }
+
+    // Giao diện thêm
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("rooms", roomService.getAvailableRooms());
         return "add-booking";
     }
 
-    @PostMapping("/bookings/add")
-    public String addBooking(
-            @RequestParam("customerName") String customerName,
-            @RequestParam("customerIdCard") String customerIdCard,
-            @RequestParam("customerPhone") String customerPhone,
-            @RequestParam("roomNumber") int roomNumber,
-            @RequestParam(name = "checkIn", required = false) String checkIn,
-            @RequestParam(name = "checkOut", required = false) String checkOut,
-            RedirectAttributes redirectAttributes) {
+    // Xử lý thêm
+    @PostMapping("/add")
+    public String addBooking(@RequestParam String customerIdCard,
+                             @RequestParam int roomNumber,
+                             @RequestParam String checkIn,
+                             @RequestParam String checkOut,
+                             RedirectAttributes redirectAttributes) {
+        Customer customer = customerService.findCustomer(customerIdCard).orElse(null);
+        Room room = roomService.findRoom(roomNumber).orElse(null);
+
+        if (customer == null) {
+            redirectAttributes.addFlashAttribute("message", "Khách hàng không tồn tại!");
+            return "redirect:/bookings/add";
+        }
+
+        if (room == null || !room.isAvailable()) {
+            redirectAttributes.addFlashAttribute("message", "Phòng không tồn tại hoặc đã được đặt!");
+            return "redirect:/bookings/add";
+        }
+
         try {
-            if (isInvalidInput(customerName, customerIdCard, customerPhone)) {
-                redirectAttributes.addFlashAttribute("message", "Vui lòng điền đầy đủ và đúng định dạng (CMND: 9-12 số, SĐT: 10-11 số)!");
+            LocalDate checkInDate = LocalDate.parse(checkIn);
+            LocalDate checkOutDate = LocalDate.parse(checkOut);
+            if (!checkOutDate.isAfter(checkInDate)) {
+                redirectAttributes.addFlashAttribute("message", "Ngày trả phải sau ngày nhận!");
                 return "redirect:/bookings/add";
             }
 
-            LocalDate checkInDate = parseDate(checkIn);
-            LocalDate checkOutDate = parseDate(checkOut);
-            if (checkInDate == null || checkOutDate == null) {
-                redirectAttributes.addFlashAttribute("message", "Định dạng ngày không hợp lệ (yêu cầu YYYY-MM-DD, ví dụ: 2025-06-29)!");
-                return "redirect:/bookings/add";
-            }
-            if (checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
-                redirectAttributes.addFlashAttribute("message", "Ngày trả phòng phải sau ngày nhận phòng!");
-                return "redirect:/bookings/add";
+            Booking booking = new Booking(null, customer, room, checkInDate, checkOutDate);
+            boolean success = bookingService.addBooking(booking);
+            redirectAttributes.addFlashAttribute("message", success ? "Đặt phòng thành công!" : "Đặt phòng thất bại!");
+
+        } catch (DateTimeParseException e) {
+            redirectAttributes.addFlashAttribute("message", "Ngày không hợp lệ!");
+        }
+
+        return "redirect:/bookings/list";
+    }
+
+    // Danh sách
+    @GetMapping("/list")
+    public String showBookingList(Model model) {
+        List<Booking> bookings = bookingService.getAllBookings();
+        model.addAttribute("bookings", bookings);
+        return "bookings-list";
+    }
+
+    // Giao diện xóa
+    @GetMapping("/delete")
+    public String showDeleteForm(@RequestParam Long id, Model model) {
+        Booking booking = bookingService.findBooking(id).orElse(null);
+        if (booking == null) {
+            model.addAttribute("message", "Không tìm thấy đặt phòng!");
+            return "redirect:/bookings/list";
+        }
+        model.addAttribute("booking", booking);
+        return "delete-booking";
+    }
+
+    // Xử lý xóa
+    @PostMapping("/delete")
+    public String deleteBooking(@RequestParam Long id, RedirectAttributes redirectAttributes) {
+        String result = bookingService.deleteBooking(id);
+        redirectAttributes.addFlashAttribute("message",
+                result.equals("success") ? "Xóa đặt phòng thành công!" : result);
+        return "redirect:/bookings/list";
+    }
+
+    @GetMapping("/edit")
+    public String showEditForm(@RequestParam Long id, Model model) {
+        Booking booking = bookingService.findBooking(id).orElse(null);
+        if (booking == null) {
+            model.addAttribute("message", "Không tìm thấy đặt phòng!");
+            return "redirect:/bookings/list";
+        }
+        model.addAttribute("booking", booking);
+        model.addAttribute("rooms", roomService.getAllRooms());
+        return "edit-booking";
+    }
+
+    @PostMapping("/edit")
+    public String editBooking(@RequestParam Long id,
+                              @RequestParam int roomNumber,
+                              @RequestParam String checkIn,
+                              @RequestParam String checkOut,
+                              RedirectAttributes redirectAttributes) {
+        Booking booking = bookingService.findBooking(id).orElse(null);
+        if (booking == null) {
+            redirectAttributes.addFlashAttribute("message", "Không tìm thấy đặt phòng!");
+            return "redirect:/bookings/list";
+        }
+
+        try {
+            LocalDate checkInDate = LocalDate.parse(checkIn);
+            LocalDate checkOutDate = LocalDate.parse(checkOut);
+
+            if (!checkOutDate.isAfter(checkInDate)) {
+                redirectAttributes.addFlashAttribute("message", "Ngày trả phải sau ngày nhận!");
+                return "redirect:/bookings/edit?id=" + id;
             }
 
-            Room room = roomManagementService.getRooms().stream()
-                    .filter(r -> r != null && r.getRoomNumber() == roomNumber)
-                    .findFirst()
-                    .orElse(null);
+            Room room = roomService.findRoom(roomNumber).orElse(null);
             if (room == null) {
                 redirectAttributes.addFlashAttribute("message", "Phòng không tồn tại!");
-                return "redirect:/bookings/add";
+                return "redirect:/bookings/edit?id=" + id;
             }
 
-            Customer customer = new Customer(customerName.trim(), customerIdCard.trim(), customerPhone.trim());
-            Booking booking = new Booking(customer, room, checkInDate, checkOutDate);
+            booking.setRoom(room);
+            booking.setCheckIn(checkInDate);
+            booking.setCheckOut(checkOutDate);
 
-            if (bookingManagementService.addBooking(booking)) {
-                redirectAttributes.addFlashAttribute("message", "Đặt phòng thành công!");
-            } else {
-                redirectAttributes.addFlashAttribute("message", "Đặt phòng thất bại do phòng đã được đặt hoặc lỗi khác!");
-            }
-        } catch (Exception e) {
-            logger.error("Lỗi khi thêm đặt phòng: {}", e.getMessage(), e);
-            redirectAttributes.addFlashAttribute("message", "Lỗi hệ thống khi đặt phòng: " + e.getMessage());
-        }
-        return "redirect:/bookings/add";
-    }
+            boolean success = bookingService.updateBooking(booking);
+            redirectAttributes.addFlashAttribute("message", success ? "Cập nhật thành công!" : "Cập nhật thất bại!");
 
-    private boolean isInvalidInput(String name, String idCard, String phone) {
-        return name == null || name.trim().isEmpty() ||
-                idCard == null || idCard.trim().isEmpty() || !idCard.matches("\\d{9,12}") ||
-                phone == null || phone.trim().isEmpty() || !phone.matches("\\d{10,11}");
-    }
-
-    private LocalDate parseDate(String dateStr) {
-        if (dateStr == null || dateStr.trim().isEmpty()) {
-            return null;
-        }
-        try {
-            return LocalDate.parse(dateStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            return null;
+            redirectAttributes.addFlashAttribute("message", "Ngày không hợp lệ!");
+            return "redirect:/bookings/edit?id=" + id;
         }
+
+        return "redirect:/bookings/list";
     }
+
+
+    // Giao diện nhập ID để tìm kiếm đặt phòng
+    @GetMapping("/search/form")
+    public String showSearchBookingForm() {
+        return "search-booking";
+    }
+
+    // Xử lý tìm kiếm đặt phòng theo ID
+    @PostMapping("/search")
+    public String searchBookingById(@RequestParam Long id, Model model) {
+        Booking booking = bookingService.findBooking(id).orElse(null);
+        if (booking == null) {
+            model.addAttribute("message", "Không tìm thấy đặt phòng với ID đã nhập.");
+        } else {
+            model.addAttribute("booking", booking);
+        }
+        return "search-booking";
+    }
+
+
+
 }
