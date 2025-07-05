@@ -109,8 +109,6 @@ gs-serving-web-content-main/
 - **Test**: Chứa các hàm kiểm thử để đảm bảo tính năng hoạt động đúng.
 
 ## 📌 Tính năng tương lai
-- 💵 Tính tổng tiền thuê theo số ngày.
-- 📈 Thống kê phòng đang sử dụng.
 - 🧾 Tạo hóa đơn và lịch sử đặt phòng.
 - 🔍 Tìm kiếm khách thuê dài hạn.
 
