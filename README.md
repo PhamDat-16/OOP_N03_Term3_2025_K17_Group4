@@ -1,7 +1,7 @@
 # 💻 Chương Trình Quản lý Khách Sạn
 
 ## 📖 Giới thiệu
-Ứng dụng web Quản lý Khách Sạn được phát triển bởi nhóm 4, lớp OOP_N03_K17, học kỳ 3 năm 2025, sử dụng Java Spring Boot. Sau nhiều lần chỉnh sửa và tối ưu hóa bởi cả nhóm, ứng dụng hiện cung cấp các chức năng quản lý phòng, khách hàng, và đặt phòng với giao diện thân thiện được xây dựng bằng Thymeleaf và TailwindCSS, tích hợp cơ sở dữ liệu MySQL. Đây là phiên bản đã được làm mới hoàn toàn để đáp ứng tốt hơn các yêu cầu thực tế, với trọng tâm là loại bỏ xung đột và cải thiện hiệu suất.
+Chương trình Quản lý Khách Sạn được phát triển bởi nhóm 4, lớp OOP_N03_K17, học kỳ 3 năm 2025, sử dụng Java Spring Boot. Sau nhiều lần chỉnh sửa và tối ưu hóa bởi cả nhóm, ứng dụng hiện cung cấp các chức năng quản lý phòng, khách hàng, và đặt phòng với giao diện thân thiện được xây dựng bằng Thymeleaf và TailwindCSS, tích hợp cơ sở dữ liệu MySQL. Đây là phiên bản đã được làm mới hoàn toàn để đáp ứng tốt hơn các yêu cầu thực tế, với trọng tâm là loại bỏ xung đột và cải thiện hiệu suất.
 
 ### Tính năng chính:
 - 🏨 **Quản lý phòng**: Xem danh sách phòng, kiểm tra trạng thái (trống/đã đặt).
