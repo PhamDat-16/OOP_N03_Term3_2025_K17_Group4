@@ -114,7 +114,7 @@ gs-serving-web-content-main/
 
 ## 📚 Tài liệu tham khảo
 - **Sơ đồ**: [Link Sơ đồ](https://drive.google.com/file/d/1JDg255bVDSomBMJxzVN4QlkrKBQQ0ZfJ/view?usp=sharing)
-- **Lưu đồ thuật toán**: [Link Lưu đồ](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view)
+- **Lưu đồ thuật toán**: [Link Lưu đồ](https://drive.google.com/file/d/1hm73gXG74Pp18vb9ZUafYWkfcUsCJjkN/view?usp=sharing)
 - **Biểu đồ UML**: [Link UML](https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view)
 
 ## ⚠️ Lưu ý
