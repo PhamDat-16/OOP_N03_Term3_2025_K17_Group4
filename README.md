@@ -113,7 +113,7 @@ gs-serving-web-content-main/
 - 🔍 Tìm kiếm khách thuê dài hạn.
 
 ## 📚 Tài liệu tham khảo
-- **Sơ đồ**: [Link Sơ đồ](https://github-production-user-asset-6210df.s3.amazonaws.com/208896553/446329549-32a6823a-1911-4461-b014-6c90dadbf1f8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250628T184250Z&X-Amz-Expires=300&X-Amz-Signature=35398fe21ff1c71d3f57409d3d1b6998d2733db2fec3e72398542d0800d6f96a&X-Amz-SignedHeaders=host)
+- **Sơ đồ**: [Link Sơ đồ](https://drive.google.com/file/d/1JDg255bVDSomBMJxzVN4QlkrKBQQ0ZfJ/view?usp=sharing)
 - **Lưu đồ thuật toán**: [Link Lưu đồ](https://drive.google.com/file/d/1-YztSr3uTtsqaNtzF-dGCkJwRVqrML_D/view)
 - **Biểu đồ UML**: [Link UML](https://drive.google.com/file/d/19ZqBlTzRiTUdUylslvrwirQt8ozASohF/view)
 
